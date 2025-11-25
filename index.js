@@ -1,13 +1,29 @@
 // Import required modules 
-const { Client, GatewayIntentBits } = require('discord.js'); 
-require('dotenv').config(); 
+import dotenv from "dotenv";
+dotenv.config();
+import { Client, GatewayIntentBits } from "discord.js";
+import { joinVoiceChannel, createAudioPlayer, createAudioResource, getVoiceConnection, AudioPlayerStatus } from "@discordjs/voice";
+import path from "path";
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+import {
+  help as HELP_RESPONSES,
+  rude as RUDE_RESPONSES,
+  busy as BUSY_RESPONSES,
+  joining as JOINING_RESPONSES,
+} from './lines/responses.js';
 
 const KYLE_UID = "451565579401428993"
-import { lines } from "./lines/help-response.js" as HELP_RESPONSE_LINES;
 
 
 function GetRandomLine(lines){
   return lines[Math.floor(Math.random() * lines.length)]
+}
+function FindAnywhere(msg, test){
+  return msg.toLowerCase().includes(test.toLowerCase());
 }
 
 
@@ -25,6 +41,8 @@ client.once('ready', () => {
   console.log(`🤖 Logged in as ${client.user.tag}`); 
 }); 
 
+let connection;
+
 // Listen and respond to messages 
 client.on('messageCreate', message => { 
 
@@ -35,8 +53,42 @@ client.on('messageCreate', message => {
     message.react("👎");
   }
   // Respond to a specific message 
-  else if (message.content.toLowerCase() === 'help') { 
-    message.reply(GetRandomLine(HELP_RESPONSE_LINES)); 
+  else if (FindAnywhere(message.content, 'help')) { 
+    message.reply(GetRandomLine(HELP_RESPONSES)); 
+  }
+  else if (FindAnywhere(message.content, 'rude')) { 
+    message.reply(GetRandomLine(RUDE_RESPONSES));
+  }
+  else if (FindAnywhere(message.content, 'Gimmie advice')) { 
+    const channel = message.member?.voice?.channel; // user’s voice channel
+
+    if (!channel) {
+      message.reply(GetRandomLine(BUSY_RESPONSES));
+      return;
+    }
+    
+
+    connection = joinVoiceChannel({
+      channelId: channel.id,
+      guildId: channel.guild.id,
+      adapterCreator: channel.guild.voiceAdapterCreator
+    })
+    message.reply(GetRandomLine(JOINING_RESPONSES));
+
+    const player = createAudioPlayer();
+    const STAL = createAudioResource('./assets/audio/stal.mp3');
+
+    player.play(STAL);
+    connection.subscribe(player);
+
+    player.on(AudioPlayerStatus.Idle, () => {
+      connection.destroy()
+    });
+
+    
+  }
+  else if (FindAnywhere(message.content, 'fuck off')){
+    if (connection) connection.destroy()
   }
 });
 
