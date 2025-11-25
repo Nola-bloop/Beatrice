@@ -4,7 +4,8 @@ require('dotenv').config();
 
 const KYLE_UID = "451565579401428993"
 const HELP_MESSAGES = [
-  `Hello there, I couldn't help but notice your`
+  `Hello there, I couldn't help but notice that you're feeling a little gloomy... Would you mind telling me what's wrong?`,
+  `You don't deserve to be`
 ]
 
 
