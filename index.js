@@ -3,10 +3,12 @@ const { Client, GatewayIntentBits } = require('discord.js');
 require('dotenv').config(); 
 
 const KYLE_UID = "451565579401428993"
-const HELP_MESSAGES = [
-  `Hello there, I couldn't help but notice that you're feeling a little gloomy... Would you mind telling me what's wrong?`,
-  `You don't deserve to be`
-]
+import { lines } from "./lines/help-response.js" as HELP_RESPONSE_LINES;
+
+
+function GetRandomLine(lines){
+  return lines[Math.floor(Math.random() * lines.length)]
+}
 
 
 // Create a new Discord client with message intent 
@@ -34,7 +36,7 @@ client.on('messageCreate', message => {
   }
   // Respond to a specific message 
   else if (message.content.toLowerCase() === 'help') { 
-    message.reply(''); 
+    message.reply(GetRandomLine(HELP_RESPONSE_LINES)); 
   }
 });
 
