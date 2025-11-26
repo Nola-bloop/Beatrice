@@ -46,12 +46,22 @@ let connection;
 // Listen and respond to messages 
 client.on('messageCreate', message => { 
 
-  // Ignore messages from bots 
-  if (message.author.bot) return; 
-
   if (message.author.id === KYLE_UID){ //kyle
     message.react("👎");
   }
+
+  // Ignore messages from bots 
+  if (message.author.bot) return;
+
+  //ignore messages not meant for beatrice
+  if (!FindAnywhere(message.content, 'beatrice'))
+    if (!message.mentions.has(client.user))
+      return;
+
+  ReactToMessage(message);
+});
+
+function ReactToMessage(message){
   // Respond to a specific message 
   else if (FindAnywhere(message.content, 'help')) { 
     message.reply(GetRandomLine(HELP_RESPONSES)); 
@@ -59,7 +69,7 @@ client.on('messageCreate', message => {
   else if (FindAnywhere(message.content, 'rude')) { 
     message.reply(GetRandomLine(RUDE_RESPONSES));
   }
-  else if (FindAnywhere(message.content, 'Gimmie advice')) { 
+  else if (FindAnywhere(message.content, 'gimmie advice')) { 
     const channel = message.member?.voice?.channel; // user’s voice channel
 
     if (!channel) {
@@ -75,22 +85,11 @@ client.on('messageCreate', message => {
     })
     message.reply(GetRandomLine(JOINING_RESPONSES));
 
-    const player = createAudioPlayer();
-    const STAL = createAudioResource('./assets/audio/stal.mp3');
-
-    player.play(STAL);
-    connection.subscribe(player);
-
-    player.on(AudioPlayerStatus.Idle, () => {
-      connection.destroy()
-    });
-
-    
   }
   else if (FindAnywhere(message.content, 'fuck off')){
     if (connection) connection.destroy()
   }
-});
+}
 
 // Log in to Discord using token from .env 
 client.login(process.env.DISCORD_TOKEN); 
