@@ -14,6 +14,8 @@ import {
   rude as RUDE_RESPONSES,
   busy as BUSY_RESPONSES,
   joining as JOINING_RESPONSES,
+  copypastas as COPYPASTAS,
+  legalAdvice as LEGAL_ADVICE,
 } from './lines/responses.js';
 
 const KYLE_UID = "451565579401428993"
@@ -69,6 +71,9 @@ function ReactToMessage(message){
   else if (FindAnywhere(message.content, 'rude')) { 
     message.reply(GetRandomLine(RUDE_RESPONSES));
   }
+  else if (FindAnywhere(message.content, 'legal advice')){
+    message.reply(GetRandomLine(LEGAL_ADVICE));
+  }
   else if (FindAnywhere(message.content, 'gimmie advice')) { 
     const channel = message.member?.voice?.channel; // user’s voice channel
 
@@ -88,6 +93,8 @@ function ReactToMessage(message){
   }
   else if (FindAnywhere(message.content, 'fuck off')){
     if (connection) connection.destroy()
+  }else{
+    message.reply(GetRandomLine(COPYPASTAS))
   }
 }
 
