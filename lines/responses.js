@@ -503,7 +503,7 @@ const legalAdvice = [
 	"Accuse your ex of ‘pre-crime heartbreak’",
 	"State that you reject the divorce and choose violence instead",
 	"Bring a cardboard sign that says 'I win'",
-	"Tell the judge you’ll only accept the verdict if it’s flattering".
+	"Tell the judge you’ll only accept the verdict if it’s flattering"
 ]
 
 export { help, rude, busy, joining, copypastas }
