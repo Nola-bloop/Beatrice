@@ -506,4 +506,4 @@ const legalAdvice = [
 	"Tell the judge you’ll only accept the verdict if it’s flattering"
 ]
 
-export { help, rude, busy, joining, copypastas }
+export { help, rude, busy, joining, copypastas, legalAdvice }
