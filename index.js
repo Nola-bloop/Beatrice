@@ -63,7 +63,7 @@ client.on('messageCreate', message => {
 
 function ReactToMessage(message){
   // Respond to a specific message 
-  else if (FindAnywhere(message.content, 'help')) { 
+  if (FindAnywhere(message.content, 'help')) { 
     message.reply(GetRandomLine(HELP_RESPONSES)); 
   }
   else if (FindAnywhere(message.content, 'rude')) { 

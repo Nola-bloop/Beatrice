@@ -326,4 +326,10 @@ const joining = [
 	"I’ll be right there, try to survive the wait",
 ]
 
+const copypastas = [
+`
+> Guys
+`,
+]
+
 export { help, rude, busy, joining}
