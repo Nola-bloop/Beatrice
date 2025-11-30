@@ -16,7 +16,11 @@ import {
   joining as JOINING_RESPONSES,
   copypastas as COPYPASTAS,
   legalAdvice as LEGAL_ADVICE,
-} from './lines/responses.js';
+} from './resources/responses.js';
+
+import {
+  uncategorized as UNCATEGORIZED_POLLS
+} from './resources/polls.js';
 
 const KYLE_UID = "451565579401428993"
 
@@ -27,6 +31,9 @@ function GetRandomLine(lines){
 function FindAnywhere(msg, test){
   return msg.toLowerCase().includes(test.toLowerCase());
 }
+function GetRandomPoll(pollList){
+  return pollList[Math.floor(Math.random() * pollList.length)]
+}
 
 
 // Create a new Discord client with message intent 
@@ -34,14 +41,15 @@ const client = new Client({
   intents: [ 
       GatewayIntentBits.Guilds,  
       GatewayIntentBits.GuildMessages,  
-      GatewayIntentBits.MessageContent
+      GatewayIntentBits.MessageContent,
+      GatewayIntentBits.GuildMessagePolls,
     ] 
 }); 
 
 // Bot is ready 
 client.once('ready', () => { 
   console.log(`🤖 Logged in as ${client.user.tag}`); 
-}); 
+});
 
 let connection;
 
@@ -74,6 +82,9 @@ function ReactToMessage(message){
   else if (FindAnywhere(message.content, 'legal advice')){
     message.reply(GetRandomLine(LEGAL_ADVICE));
   }
+  else if (FindAnywhere(message.content, 'poll')){
+    message.channel.send(GetRandomPoll(UNCATEGORIZED_POLLS))
+  }
   else if (FindAnywhere(message.content, 'gimmie advice')) { 
     const channel = message.member?.voice?.channel; // user’s voice channel
 
@@ -93,7 +104,8 @@ function ReactToMessage(message){
   }
   else if (FindAnywhere(message.content, 'fuck off')){
     if (connection) connection.destroy()
-  }else{
+  }
+  else{
     message.reply(GetRandomLine(COPYPASTAS))
   }
 }

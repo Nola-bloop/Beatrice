@@ -1,0 +1,67 @@
+Checking for update
+Vesktop v1.6.1
+Disabled Chromium features: WinRetrieveSuggestionsOnlyOnDemand, HardwareMediaKeyHandling, MediaSessionService
+
+(vesktop.bin:11691): Gtk-WARNING **: 14:54:56.119: Theme parsing error: gtk.css:2551:51: Using one color stop with linear-gradient() is deprecated.
+
+(vesktop.bin:11691): Gtk-WARNING **: 14:54:56.652: Theme parsing error: gtk.css:2551:51: Using one color stop with linear-gradient() is deprecated.
+[11759:1126/145456.679835:ERROR:media/gpu/vaapi/vaapi_wrapper.cc:1631] vaInitialize failed: unknown libva error
+[[38;2;88;101;242marRPC[0m > [38;2;254;231;92mipc[0m] listening at /run/user/1000/discord-ipc-0
+[[38;2;88;101;242marRPC[0m > [38;2;235;69;158mwebsocket[0m] listening on 6463
+[[38;2;88;101;242marRPC[0m > [38;2;237;66;69mprocess[0m] started
+[11691:1126/145456.868908:ERROR:ui/ozone/platform/wayland/host/wayland_wp_color_manager.cc:273] Unable to set image transfer function.
+[11691:1126/145456.868925:ERROR:ui/ozone/platform/wayland/host/wayland_wp_color_manager.cc:191] Failed to populate image description for color space {primaries:BT709, transfer:SRGB, matrix:RGB, range:FULL}
+Update for version 1.6.1 is not available (latest version: 1.6.1, downgrade is disallowed).
+Error: net::ERR_FILE_NOT_FOUND
+    at SimpleURLLoaderWrapper.<anonymous> (node:electron/js2c/browser_init:2:124518)
+    at SimpleURLLoaderWrapper.emit (node:events:519:28)
+Error: net::ERR_FILE_NOT_FOUND
+    at SimpleURLLoaderWrapper.<anonymous> (node:electron/js2c/browser_init:2:124518)
+    at SimpleURLLoaderWrapper.emit (node:events:519:28)
+[11691:1126/145459.229177:ERROR:ui/ozone/platform/wayland/host/wayland_wp_color_manager.cc:273] Unable to set image transfer function.
+[11691:1126/145459.229201:ERROR:ui/ozone/platform/wayland/host/wayland_wp_color_manager.cc:191] Failed to populate image description for color space {primaries:BT709, transfer:SRGB, matrix:RGB, range:FULL}
+[11691:1126/145459.229208:ERROR:ui/ozone/platform/wayland/host/wayland_wp_color_management_surface.cc:63] Failed to get image description for color space.
+[[38;2;88;101;242marRPC[0m > [38;2;237;66;69mprocess[0m] detected game! FragPunk
+[[38;2;88;101;242marRPC[0m > [38;2;237;66;69mprocess[0m] lost game! FragPunk
+[[38;2;88;101;242marRPC[0m > [38;2;254;231;92mipc[0m] new connection!
+[2025-11-26 17:30:07.320] [venmic] [info] [patchbay] (handle) found default metadata: 38
+[2025-11-26 17:30:07.320] [venmic] [info] [patchbay] (meta_update) speaker name: "alsa_output.pci-0000_00_1f.3.analog-stereo"
+[2025-11-26 17:30:07.320] [venmic] [info] [patchbay] (get) running venmic 6.1.0
+[2025-11-26 17:30:22.068] [venmic] [info] [patchbay] (create_mic) created: 138
+[OpenH264] this = 0x0x3abc14d55080, Warning:Actual input framerate 0.000000 is different from framerate in setting 25.000000, suggest to use other rate control modes
+[OpenH264] this = 0x0x3abc13273420, Warning:Actual input framerate 0.000000 is different from framerate in setting 25.000000, suggest to use other rate control modes
+[OpenH264] this = 0x0x3abc14b38ed0, Warning:Actual input framerate 0.000000 is different from framerate in setting 27.000000, suggest to use other rate control modes
+[OpenH264] this = 0x0x3abc12b92550, Warning:Actual input framerate 0.000000 is different from framerate in setting 28.000000, suggest to use other rate control modes
+[OpenH264] this = 0x0x3abc11999bc0, Warning:Actual input framerate 0.000000 is different from framerate in setting 27.000000, suggest to use other rate control modes
+[OpenH264] this = 0x0x3abc11999bc0, Warning:[Rc] iDid = 0,iContinualSkipFrames(3) is large
+[OpenH264] this = 0x0x3abc11999bc0, Warning:[Rc] iDid = 0,iContinualSkipFrames(6) is large
+[OpenH264] this = 0x0x3abc11999bc0, Warning:[Rc] iDid = 0,iContinualSkipFrames(9) is large
+[OpenH264] this = 0x0x3abc11999bc0, Warning:Actual input framerate 23.473246 is different from framerate in setting 29.000000, suggest to use other rate control modes
+[OpenH264] this = 0x0x3abc11999bc0, Warning:[Rc] iDid = 0,iContinualSkipFrames(3) is large
+[11759:1126/174257.854527:ERROR:gpu/command_buffer/service/shared_image/shared_image_manager.cc:393] SharedImageManager::ProduceSkia: Trying to Produce a Skia representation from a non-existent mailbox.
+[2025-11-26 18:09:07.057] [venmic] [info] [patchbay] (create_mic) created: 128
+[OpenH264] this = 0x0x3abc186f94a0, Warning:Actual input framerate 0.000000 is different from framerate in setting 28.000000, suggest to use other rate control modes
+[OpenH264] this = 0x0x3abc14d7d7a0, Warning:Actual input framerate 0.000000 is different from framerate in setting 29.000000, suggest to use other rate control modes
+[OpenH264] this = 0x0x3abc132b7f90, Warning:Actual input framerate 0.000000 is different from framerate in setting 29.000000, suggest to use other rate control modes
+[OpenH264] this = 0x0x3abc186a98c0, Warning:Actual input framerate 0.000000 is different from framerate in setting 30.000000, suggest to use other rate control modes
+[OpenH264] this = 0x0x3abc106df1b0, Warning:Actual input framerate 0.000000 is different from framerate in setting 29.000000, suggest to use other rate control modes
+[OpenH264] this = 0x0x3abc16608d20, Warning:Actual input framerate 0.000000 is different from framerate in setting 29.000000, suggest to use other rate control modes
+[OpenH264] this = 0x0x3abc186e9a70, Warning:Actual input framerate 0.000000 is different from framerate in setting 29.000000, suggest to use other rate control modes
+[OpenH264] this = 0x0x3abc186e9a70, Warning:[Rc] iDid = 0,iContinualSkipFrames(3) is large
+[11811:1126/201035.649517:ERROR:third_party/webrtc/pc/srtp_transport.cc:131] Failed to unprotect RTP packet: size=22, seqnum=0, SSRC=0, previous failure count: 0
+[11811:1126/201203.040872:ERROR:third_party/webrtc/pc/srtp_transport.cc:131] Failed to unprotect RTP packet: size=22, seqnum=0, SSRC=0, previous failure count: 0
+[[38;2;88;101;242marRPC[0m > [38;2;237;66;69mprocess[0m] detected game! FragPunk
+[11811:1126/202132.659418:ERROR:third_party/webrtc/pc/srtp_transport.cc:131] Failed to unprotect RTP packet: size=22, seqnum=0, SSRC=0, previous failure count: 100
+[[38;2;88;101;242marRPC[0m > [38;2;237;66;69mprocess[0m] lost game! FragPunk
+[11691:1127/003425.343209:ERROR:content/browser/network_service_instance_impl.cc:613] Network service crashed, restarting service.
+[11691:1127/003425.350688:ERROR:content/common/zygote/zygote_communication_linux.cc:293] Failed to send GetTerminationStatus message to zygote
+[11691:1127/003425.351490:ERROR:content/browser/gpu/gpu_process_host.cc:993] GPU process launch failed: error_code=1002
+[11691:1127/003425.351735:ERROR:content/browser/gpu/gpu_process_host.cc:993] GPU process launch failed: error_code=1002
+[11691:1127/003425.351896:ERROR:content/browser/gpu/gpu_process_host.cc:993] GPU process launch failed: error_code=1002
+[11691:1127/003425.352046:ERROR:content/browser/gpu/gpu_process_host.cc:993] GPU process launch failed: error_code=1002
+[11691:1127/003425.352183:ERROR:content/browser/gpu/gpu_process_host.cc:993] GPU process launch failed: error_code=1002
+[11691:1127/003425.352312:ERROR:content/browser/gpu/gpu_process_host.cc:993] GPU process launch failed: error_code=1002
+[11691:1127/003425.352488:ERROR:content/browser/gpu/gpu_process_host.cc:993] GPU process launch failed: error_code=1002
+[11691:1127/003425.352627:ERROR:content/browser/gpu/gpu_process_host.cc:993] GPU process launch failed: error_code=1002
+[11691:1127/003425.352758:ERROR:content/browser/gpu/gpu_process_host.cc:993] GPU process launch failed: error_code=1002
+[11691:1127/003425.352762:FATAL:content/browser/gpu/gpu_data_manager_impl_private.cc:415] GPU process isn't usable. Goodbye.
