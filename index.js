@@ -3,7 +3,7 @@ import { exec } from 'child_process';
 import dotenv from "dotenv";
 dotenv.config();
 import { Client, GatewayIntentBits } from "discord.js";
-import { joinVoiceChannel, createAudioPlayer, createAudioResource, getVoiceConnection, AudioPlayerStatus } from "@discordjs/voice";
+import { joinVoiceChannel, createAudioPlayer, createAudioResource, getVoiceConnection, AudioPlayerStatus, VoiceConnectionStatus } from "@discordjs/voice";
 import path from "path";
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
@@ -120,14 +120,14 @@ function ReactToMessage(message){
       player.play(resource);
 
       player.on(AudioPlayerStatus.Idle, () => {
-        setTimeout(() => connection?.destroy(), 1_000);
+        setTimeout(() => Disconnect(), 1_000);
       });
     })
 
     
   }
   else if (FindAnywhere(message.content, 'fuck off')){
-    if (connection) connection?.destroy()
+    Disconnect();
   }
   else if (FindAnywhere(message.content, 'debug-pwd')){
     exec("pwd", function (error, stdout, stderr){
@@ -140,6 +140,13 @@ function ReactToMessage(message){
   }
   else{
     message.reply(GetRandomLine(COPYPASTAS))
+  }
+}
+
+function Disconnect(){
+  if (connection?.state != VoiceConnectionStatus.Disconnected){
+    connection?.destroy()
+    connection = undefined
   }
 }
 
