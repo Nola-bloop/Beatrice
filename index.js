@@ -107,6 +107,13 @@ function ReactToMessage(message){
 
 
     exec("yt-dlp -P ./assets/audio/ --force-overwrites -o current-audio.mp3 -t mp3 " + GetRandomVideoURL(SONGS), (error, stdout, stderr) => {
+      console.log(
+        "error : `"+error+"`\n" +
+        "stdout : `"+stdout+"`\n" +
+        "stderr : `"+stderr+"`"
+      )
+      
+
       connection = joinVoiceChannel({
         channelId: channel.id,
         guildId: channel.guild.id,
@@ -135,7 +142,7 @@ function ReactToMessage(message){
           "error : `"+error+"`\n" +
           "stdout : `"+stdout+"`\n" +
           "stderr : `"+stderr+"`"
-        )
+      )
     })
   }
   else{
