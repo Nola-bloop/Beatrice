@@ -1,4 +1,5 @@
-// Import required modules 
+// Import required modules
+import { exec } from 'child_process';
 import dotenv from "dotenv";
 dotenv.config();
 import { Client, GatewayIntentBits } from "discord.js";
@@ -19,8 +20,12 @@ import {
 } from './resources/responses.js';
 
 import {
-  uncategorized as UNCATEGORIZED_POLLS
+  uncategorized as UNCATEGORIZED_POLLS,
 } from './resources/polls.js';
+
+import {
+  songs as SONGS,
+} from './resources/videos.js';
 
 const KYLE_UID = "451565579401428993"
 
@@ -34,6 +39,9 @@ function FindAnywhere(msg, test){
 function GetRandomPoll(pollList){
   return pollList[Math.floor(Math.random() * pollList.length)]
 }
+function GetRandomVideoURL(videoList){
+  return videoList[Math.floor(Math.random() * videoList.length)].url
+}
 
 
 // Create a new Discord client with message intent 
@@ -42,6 +50,7 @@ const client = new Client({
       GatewayIntentBits.Guilds,  
       GatewayIntentBits.GuildMessages,  
       GatewayIntentBits.MessageContent,
+      GatewayIntentBits.GuildVoiceStates,
       GatewayIntentBits.GuildMessagePolls,
     ] 
 }); 
@@ -52,6 +61,7 @@ client.once('ready', () => {
 });
 
 let connection;
+let player = createAudioPlayer();
 
 // Listen and respond to messages 
 client.on('messageCreate', message => { 
@@ -92,18 +102,41 @@ function ReactToMessage(message){
       message.reply(GetRandomLine(BUSY_RESPONSES));
       return;
     }
-    
-
-    connection = joinVoiceChannel({
-      channelId: channel.id,
-      guildId: channel.guild.id,
-      adapterCreator: channel.guild.voiceAdapterCreator
-    })
     message.reply(GetRandomLine(JOINING_RESPONSES));
 
+
+
+    exec("yt-dlp -P ./assets/audio/ --force-overwrites -o current-audio.mp3 -t mp3 " + GetRandomVideoURL(SONGS), (error, stdout, stderr) => {
+      connection = joinVoiceChannel({
+        channelId: channel.id,
+        guildId: channel.guild.id,
+        adapterCreator: channel.guild.voiceAdapterCreator
+      })
+      
+
+      const resource = createAudioResource("./assets/audio/current-audio.mp3");
+
+      connection.subscribe(player);
+      player.play(resource);
+
+      player.on(AudioPlayerStatus.Idle, () => {
+        setTimeout(() => connection?.destroy(), 1_000);
+      });
+    })
+
+    
   }
   else if (FindAnywhere(message.content, 'fuck off')){
-    if (connection) connection.destroy()
+    if (connection) connection?.destroy()
+  }
+  else if (FindAnywhere(message.content, 'debug-pwd')){
+    exec("pwd", function (error, stdout, stderr){
+      message.reply(
+          "error : `"+error+"`\n" +
+          "stdout : `"+stdout+"`\n" +
+          "stderr : `"+stderr+"`"
+        )
+    })
   }
   else{
     message.reply(GetRandomLine(COPYPASTAS))
