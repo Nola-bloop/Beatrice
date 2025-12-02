@@ -27,8 +27,7 @@ const module = {
 		const response = await fetch(url, {
 		  method: "DELETE"
 		});
-	},
-	CreateSong: async (name)
+	}
 }
 
 export default module
