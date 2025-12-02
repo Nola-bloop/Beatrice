@@ -21,7 +21,7 @@ export default {
 
 	async execute(interaction) {
 		const action = interaction.options.getString('action')
-		if (action === "create"){
+		if (action === "list"){
 			let userId = interaction.member.user.id;
 			let playlists = caller.ListPlaylists(userId)
 			if (playlists.length > 0){
@@ -35,6 +35,5 @@ export default {
 				await interaction.reply('No playlist found.')
 			}
 		}
-		await interaction.reply('peepoo');
 	},
 };
