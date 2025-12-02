@@ -34,6 +34,8 @@ export default {
 			}else{
 				await interaction.reply('No playlist found.')
 			}
+		}else{
+			await interaction.reply('Unkown parameters.')
 		}
 	},
 };
