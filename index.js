@@ -61,7 +61,6 @@ client.once('ready', () => {
 });
 
 let connection;
-let player = createAudioPlayer();
 
 // Listen and respond to messages 
 client.on('messageCreate', message => { 
