@@ -11,13 +11,26 @@ export default {
                 .setDescription('Choose an action')
                 .setRequired(true)
                 .addChoices(
-                    { name: 'Create', value: 'create' },
+                    { name: 'Create <name>', value: 'create' },
                     { name: 'List', value: 'list' },
-                    { name: 'Get', value: 'get' },
-                    { name: 'Update', value: 'Update' },
-                    { name: 'Delete', value: 'delete' }
+                    { name: 'Get <id>', value: 'get' },
+                    { name: 'Update <id> [name] [author]', value: 'Update' },
+                    { name: 'Delete <id>', value: 'delete' }
                 )
-        ),
+        )
+        .addStringOption(option =>
+        	option
+        		.setName('id')
+        		.setDescription('Required if <id> is in command description. ')
+        		.setRequired(false)
+        )
+        .addStringOption(option =>
+        	option
+        		.setName('name')
+        		.setDescription('Required if <name> is in command description. ')
+        		.setRequired(false)
+        )
+        ,
 
 	async execute(interaction) {
 		const action = interaction.options.getString('action')
@@ -34,7 +47,14 @@ export default {
 			}else{
 				await interaction.reply('No playlist found.')
 			}
-		}else{
+		}
+		else if (action == "create"){
+			let userId = interaction.member.user.id;
+			let name = interaction.options.getString('name')
+			caller.CreatePlaylist(name, userId)
+			await interaction.reply('Use `/playlist list` to confirm creation.')
+		}
+		else{
 			await interaction.reply('Unkown parameters.')
 		}
 	},
