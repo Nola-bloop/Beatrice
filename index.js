@@ -17,6 +17,7 @@ import {
   joining as JOINING_RESPONSES,
   copypastas as COPYPASTAS,
   legalAdvice as LEGAL_ADVICE,
+  facts as FACTS,
 } from './resources/responses.js';
 
 import {
@@ -93,6 +94,9 @@ function ReactToMessage(message){
   }
   else if (FindAnywhere(message.content, 'legal advice')){
     message.reply(GetRandomLine(LEGAL_ADVICE));
+  }
+  else if (FindAnywhere(message.content, 'fact')){
+    message.reply(GetRandomLine(FACTS))
   }
   else if (FindAnywhere(message.content, 'poll')){
     message.channel.send(GetRandomPoll(UNCATEGORIZED_POLLS))

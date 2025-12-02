@@ -11,10 +11,16 @@ const module = {
 		const response = await fetch(url, {
 		  method: "GET"
 		});
-		return response.hits
+		let data = await response.json()
+		return data.hits
 	},
 	GetPlaylist: async (id) => {
 		const url = `${API_URL}/playlist/id/${id}`;
+		const response = await fetch(url, {
+		  method: "GET"
+		});
+		let data = await response.json()
+		return data
 	}
 }
 
