@@ -1,10 +1,10 @@
 // Import required modules
 import { exec } from 'child_process';
-import dotenv from "dotenv";
-dotenv.config();
-import { Client, GatewayIntentBits } from "discord.js";
-import { joinVoiceChannel, createAudioPlayer, createAudioResource, getVoiceConnection, AudioPlayerStatus, VoiceConnectionStatus } from "@discordjs/voice";
+import dotenv from "dotenv"; dotenv.config();
+import fs from 'fs';
 import path from "path";
+import { Client, GatewayIntentBits, Collection } from "discord.js";
+import { joinVoiceChannel, createAudioPlayer, createAudioResource, getVoiceConnection, AudioPlayerStatus, VoiceConnectionStatus } from "@discordjs/voice";
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
@@ -56,12 +56,41 @@ const client = new Client({
     ] 
 }); 
 
+//load commands
+client.commands = new Collection();
+const commandsPath = path.join(process.cwd(), 'commands');
+const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
+for (const file of commandFiles) {
+    const filePath = path.join(commandsPath, file);
+    const command = (await import(`file://${filePath}`)).default;
+
+    client.commands.set(command.data.name, command);
+}
+
+
 // Bot is ready 
 client.once('ready', () => { 
   console.log(`🤖 Logged in as ${client.user.tag}`); 
 });
 
 let connection;
+
+//commands
+client.on('interactionCreate', async interaction => {
+  if (!interaction.isChatInputCommand()) return;
+
+  const command = client.commands.get(interaction.commandName);
+
+  if (!command) return;
+
+  try {
+    await command.execute(interaction);
+  } catch (error) {
+    console.error(error);
+    await interaction.reply({ content: 'There was an error!', ephemeral: true });
+  }
+});
+
 
 // Listen and respond to messages 
 client.on('messageCreate', message => { 

@@ -21,7 +21,14 @@ const module = {
 		});
 		let data = await response.json()
 		return data
-	}
+	},
+	DeletePlaylist: async (id, userId) => {
+		const url = `${API_URL}/playlist?id=${id}&userId=${userId}`;
+		const response = await fetch(url, {
+		  method: "DELETE"
+		});
+	},
+	CreateSong: async (name)
 }
 
 export default module
