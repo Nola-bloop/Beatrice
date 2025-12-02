@@ -28,7 +28,7 @@ import {
 } from './resources/videos.js';
 
 const KYLE_UID = "451565579401428993"
-
+const GOJI_UID = "703622228864139305"
 
 function GetRandomLine(lines){
   return lines[Math.floor(Math.random() * lines.length)]
@@ -66,7 +66,10 @@ let connection;
 client.on('messageCreate', message => { 
 
   if (message.author.id === KYLE_UID){ //kyle
-    message.react("👎");
+    message.react("👎"); return
+  }
+  if (message.author.id === GOJI_UID){ //kyle
+    message.react("👍");
   }
 
   // Ignore messages from bots 
