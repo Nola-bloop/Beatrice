@@ -12,6 +12,7 @@ const module = {
 		  method: "GET"
 		});
 		let data = await response.json()
+		console.log(data)
 		return data.hits
 	},
 	GetPlaylist: async (id) => {
