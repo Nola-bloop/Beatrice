@@ -43,6 +43,7 @@ export default {
 					output += `${playlists[i].id}: ${playlists[i].name}\n`
 				}
 				output += "```"
+				console.log(output)
 				await interaction.reply(output)
 			}else{
 				await interaction.reply('No playlist found.')
