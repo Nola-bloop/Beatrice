@@ -13,7 +13,7 @@ const module = {
 		});
 		let data = await response.json()
 		console.log(data)
-		return data.hits
+		return data
 	},
 	GetPlaylist: async (id) => {
 		const url = `${API_URL}/playlist/id/${id}`;
