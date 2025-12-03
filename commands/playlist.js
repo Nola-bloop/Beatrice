@@ -36,7 +36,7 @@ export default {
 		const action = interaction.options.getString('action')
 		if (action === "list"){
 			let userId = interaction.member.user.id;
-			let playlists = await caller.ListPlaylists(userId).then(())
+			let playlists = await caller.ListPlaylists(userId)
 			if (playlists.length > 0){
 				let output = "```"
 				for (let i = 0; i < playlists.length ; i++){
