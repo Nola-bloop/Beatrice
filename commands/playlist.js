@@ -36,16 +36,17 @@ export default {
 		const action = interaction.options.getString('action')
 		if (action === "list"){
 			let userId = interaction.member.user.id;
-			let playlists = caller.ListPlaylists(userId)
-			if (playlists.length > 0){
-				let output = "```"
-				for (let i = 0; i < playlists.length ; i++){
-					output += `${playlists[i].id}: ${playlists[i].name}\n`
+			caller.ListPlaylists(userId).then((playlists)){
+				if (playlists.length > 0){
+					let output = "```"
+					for (let i = 0; i < playlists.length ; i++){
+						output += `${playlists[i].id}: ${playlists[i].name}\n`
+					}
+					output += "```"
+					await interaction.reply(output)
+				}else{
+					await interaction.reply('No playlist found.')
 				}
-				output += "```"
-				await interaction.reply(output)
-			}else{
-				await interaction.reply('No playlist found.')
 			}
 		}
 		else if (action == "create"){
