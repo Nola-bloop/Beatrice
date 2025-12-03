@@ -36,7 +36,7 @@ export default {
 		const action = interaction.options.getString('action')
 		if (action === "list"){
 			let userId = interaction.member.user.id;
-			caller.ListPlaylists(userId).then((playlists)){
+			caller.ListPlaylists(userId).then((playlists)=>{
 				if (playlists.length > 0){
 					let output = "```"
 					for (let i = 0; i < playlists.length ; i++){
@@ -47,7 +47,7 @@ export default {
 				}else{
 					await interaction.reply('No playlist found.')
 				}
-			}
+			})
 		}
 		else if (action == "create"){
 			let userId = interaction.member.user.id;
