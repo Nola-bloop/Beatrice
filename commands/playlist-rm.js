@@ -16,6 +16,6 @@ export default {
 		let userId = interaction.member.user.id;
 		let id = interaction.options.getString('id')
 		await caller.DeletePlaylist(id, userId)
-		await interaction.reply('Use `/playlist list` to confirm removal.')
+		await interaction.reply('Use `/playlist-list` to confirm removal.')
 	},
 };

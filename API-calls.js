@@ -22,13 +22,29 @@ const module = {
 		let data = await response.json()
 		return data
 	},
+	UpdatePlaylist: async (userId, id, name, author) => {
+		let url = `${API_URL}/playlist?`
+
+		if (!id && !userId && (!name || author)) return;
+
+		url += `userId=${userId}&`
+		url += `id=${id}&`
+
+		if (name) url+=`name=${name}&`
+		if (author) url+=`author=${author}&`
+		url = url.slice(0, -1)
+		const response = await fetch(url, {
+		  method: "PUT"
+		});
+		let data = await response.json()
+		console.log(data)
+	},
 	DeletePlaylist: async (id, userId) => {
 		const url = `${API_URL}/playlist?id=${id}&userId=${userId}`;
 		const response = await fetch(url, {
 		  method: "DELETE"
 		});
 		let data = await response.json()
-		console.log(data)
 	}
 }
 

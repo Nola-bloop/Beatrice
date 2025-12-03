@@ -16,6 +16,6 @@ export default {
 		let userId = interaction.member.user.id;
 		let name = interaction.options.getString('name')
 		caller.CreatePlaylist(name, userId)
-		await interaction.reply('Use `/playlist list` to confirm creation.')
+		await interaction.reply('Use `/playlist-list` to confirm creation.')
 },
 };
