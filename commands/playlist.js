@@ -64,7 +64,8 @@ export default {
 		        		.setDescription('The id of your new playlist (shown in the "playlist-list" output).')
 		        		.setRequired(true)
 		        )
-		).addSubcommand(subCommand =>
+		)
+		.addSubcommand(subCommand =>
 			subCommand
 				.setName('add-song')
 				.setDescription('Add a song to a playlist.')
@@ -78,6 +79,17 @@ export default {
 					option
 						.setName('url')
 						.setDescription('URL of the song to add. Only works with Youtube and Youtube Music links.')
+						.setRequired(true)
+				)
+		)
+		.addSubcommand(subCommand =>
+			subCommand
+				.setName('rm-song')
+				.setDescription('Remove a song from a playlist.')
+				.addStringOption(option =>
+					option
+						.setName('id')
+						.setDescription('The id of the song to remove.')
 						.setRequired(true)
 				)
 		),
@@ -156,5 +168,10 @@ export default {
 			if (response.response != "success") await respond(interaction, response.response)
 			else await respond(interaction, 'Use `/playlists list id:'+id+'` to confirm addition.')
 		}
+		else if (sub === "rm-song"){
+			let id = interaction.options.getString('id')
+			let response = await caller.RemoveSong(userId, id)
+		}	if (response.response != "success") await respond(interaction, response.response)
+			else await respond(interaction, 'Use `/playlists list id:'+id+'` to confirm the removal.')
 	}
 };
