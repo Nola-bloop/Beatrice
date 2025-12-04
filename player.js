@@ -24,11 +24,7 @@ const module = {
  	},
  	ClearDownloads : async () => {
  		await execAsync(`rm -r ./assets/audio/*`, (error, stdout, stderr) => {
-	    	console.log(
-		        "error : `"+error+"`\n" +
-		        "stdout : `"+stdout+"`\n" +
-		        "stderr : `"+stderr+"`"
-	    	)
+ 			if (error) console.log(error)
 	  	})
  	},
  	DownloadQueue : async () => {

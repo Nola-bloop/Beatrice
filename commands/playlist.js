@@ -253,7 +253,7 @@ export default {
 			player.PlayList(connection, playlist.songs)
 
 
-			await respond(interaction, response.response)
+			await respond(interaction, "Downloading musics, it should start playing shortly.")
 		}
 	}
 };
