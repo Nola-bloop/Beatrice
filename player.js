@@ -28,23 +28,46 @@ const module = {
 	  	})
  	},
  	DownloadQueue : async (res) => {
- 		await module.ClearDownloads()
- 		while (module.queue.length != 0){
- 			let song = module.queue[0]
- 			if (ListFind(module.downloads,module.song.name)){
- 				queue.shift()
- 			}else{
- 				res(`Downloading ${song.name}`)
- 				await execAsync(`yt-dlp -P ./assets/audio/ --force-overwrites -o '${song.name}.mp3' -t mp3 ${song.url}`)
- 				let downloadObj = {
- 					name:`${song.name}`,
- 					url:`${song.url}`,
- 					fileName:`${song.name}.mp3`
- 				}
- 				module.downloads.push(downloadObj)
- 			}
- 		}
- 		await module.ClearDownloads()
+ 		await module.ClearDownloads();
+
+	    const processNext = async () => {
+	        if (module.queue.length === 0) {
+	            return;
+	        }
+
+	        let song = module.queue[0];
+
+	        // Already downloaded?
+	        if (module.ListFind(module.downloads, song.name) !== -1) {
+	            module.queue.shift();
+	            setImmediate(processNext);
+	            return;
+	        }
+
+	        // Send response callback
+	        res(`Downloading ${song.name}`);
+
+	        // Download file
+	        await execAsync(
+	            `yt-dlp -P ./assets/audio/ --force-overwrites -o "${song.name}.mp3" -f mp3 ${song.url}`
+	        );
+
+	        // Add to downloads
+	        module.downloads.push({
+	            name: song.name,
+	            url: song.url,
+	            fileName: `${song.name}.mp3`,
+	        });
+
+	        // Remove from queue
+	        module.queue.shift();
+
+	        // Continue (non-blocking)
+	        setImmediate(processNext);
+	    };
+
+	    // Start the downloader
+	    processNext();
  	},
  	PlayDownloads : async (con, waitFor, res) => {
  		let songsPlayed = 0;
