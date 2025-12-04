@@ -23,12 +23,11 @@ const module = {
 		return player
  	},
  	ClearDownloads : async () => {
- 		await execAsync(`rm -r ./assets/audio/*`, (error, stdout, stderr) => {
+ 		await execAsync(`rm -r --interactive=never ./assets/audio/*`, (error, stdout, stderr) => {
  			if (error) console.log(error)
 	  	})
  	},
  	DownloadQueue : async (res) => {
- 		await module.ClearDownloads();
 
 	    const processNext = async () => {
 	        if (module.queue.length === 0) {
