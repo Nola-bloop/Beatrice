@@ -1,6 +1,10 @@
 import { SlashCommandBuilder } from 'discord.js';
 import caller from '../API-calls.js';
 
+async function respond(interaction, message){
+	await interaction.reply({ content: message, flags: MessageFlags.Ephemeral })
+}
+
 export default {
 	data: new SlashCommandBuilder()
 		.setName('playlist')
@@ -68,27 +72,28 @@ export default {
 					output += `${playlists[i].id}: ${playlists[i].name}\n`
 				}
 				output += "```"
-				await interaction.reply(output)
+				await respond(interaction, output)
 			}else{
-				await interaction.reply('No playlist found.')
+				await respond(interaction, 'No playlist found.')
 			}
 		}
 		else if (sub === "new"){
 			let name = interaction.options.getString('name')
 			caller.CreatePlaylist(name, userId)
-			await interaction.reply('Use `/playlist-list` to confirm creation.')
+			await interaction.reply({ content: 'Use `/playlist-list` to confirm creation.', flags: MessageFlags.Ephemeral })
 		}
 		else if (sub === "edit"){
 			let id = interaction.options.getString('id')
 			let newName = interaction.options.getString('name')
 			let newAuthor = interaction.options.getUser('author')
+			console.log(newAuthor)
 			await caller.UpdatePlaylist(userId, id, newName, newAuthor)
-			await interaction.reply('Use `/playlist-list` to confirm update.')
+			await respond(interaction, 'Use `/playlist-list` to confirm update.')
 		}
 		else if (sub === "rm"){
 			let id = interaction.options.getString('id')
 			await caller.DeletePlaylist(id, userId)
-			await interaction.reply('Use `/playlist-list` to confirm removal.')
+			await respond(interaction, 'Use `/playlist-list` to confirm removal.')
 		}
 	}
 };
