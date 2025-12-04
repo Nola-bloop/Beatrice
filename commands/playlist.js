@@ -114,7 +114,7 @@ export default {
 					playlist.collaborations.forEach(collaboration => {
 						output += ` <@${collaboration.user_id}>`
 					})
-					if (playlist.collaborators.length === 0) output += "none"
+					if (playlist.collaborations.length === 0) output += "none"
 					output += "\n"
 					output += `Length : ${Math.floor(playlist.total_time/60)}m\n`
 					output += "```"
