@@ -97,7 +97,7 @@ const module = {
  	},
  	//[{"url":"abc","name":"123"}]
  	PlayList : (con, songs, res) => {
-
+ 		res("test")
  		songs.forEach(song => {
  			module.queue.push(song)
  		})
