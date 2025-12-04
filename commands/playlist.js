@@ -116,7 +116,7 @@ export default {
 				.setDescription('Uninvite a collaborator.')
 				.addStringOption(option =>
 					option
-						.setName('collaborator')
+						.setName('playlist-id')
 						.setDescription('The id of the playlist.')
 						.setRequired(true)
 				)
@@ -209,6 +209,7 @@ export default {
 		}
 		else if (sub === "invite"){
 			let collaborator = interaction.options.getUser('collaborator')
+			console.log(collaborator)
 			let playlistId = interaction.options.getString('playlist-id')
 			let response = await caller.InviteCollaborator(userId, collaborator.id, playlistId)
 			await respond(interaction, response.response)
