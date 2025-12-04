@@ -93,7 +93,7 @@ export default {
 				if (playlist.response) await respond(interaction, playlist.response)
 				else{
 					let output = `Playlist ${playlist.name}:\n`
-					output += `length in minutes: ${Math.floor(playlist.length/60)}`
+					output += `length in minutes: ${Math.floor(playlist.total_time/60)}`
 					output += "```"
 
 					const songs = playlist.songs
