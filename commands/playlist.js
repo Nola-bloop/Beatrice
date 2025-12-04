@@ -111,9 +111,9 @@ export default {
 					let output = `Playlist ${playlist.name}:\n`
 					output += `Created by : <@${author.user_id}>\n`
 					output += `Collaborators:`
-					playlist.collaborators.forEach(collaborator){
+					playlist.collaborators.forEach(collaborator => {
 						output += ` <@${collaborator.user_id}>`
-					}
+					})
 					if (playlist.collaborators.length === 0) output += "none"
 					output += "\n"
 					output += `Length : ${Math.floor(playlist.total_time/60)}m\n`

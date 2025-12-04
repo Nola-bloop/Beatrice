@@ -65,7 +65,7 @@ const module = {
 		});
 		let data = await response.json()
 		return data
-	}
+	},
 	RemoveSong : async (userId, songId) => {
 		const fetchUrl = `${API_URL}/song?userId=${userId}&songId=${songId}`;
 		const response = await fetch(fetchUrl, {
