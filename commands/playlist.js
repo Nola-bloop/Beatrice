@@ -12,7 +12,13 @@ export default {
 		.addSubcommand(subCommand =>
 			subCommand
 				.setName('list')
-				.setDescription('Show playlists.')
+				.setDescription('Show playlists or info of one.')
+				.addUserOption(option =>
+		        	option
+		        		.setName('id')
+		        		.setDescription('The id of the list to show the info of (optional).')
+		        		.setRequired(false)
+		        )
 		)
 		.addSubcommand(subCommand =>
 			subCommand
@@ -77,20 +83,41 @@ export default {
 		),
 
 	async execute(interaction) {
-		let userId = interaction.member.user.id;
+		const userId = interaction.member.user.id;
 		const sub = interaction.options.getSubcommand();
 
 		if (sub === "list"){
-			let playlists = await caller.ListPlaylists(userId)
-			if (playlists.length > 0){
-				let output = "Playlists:\n```"
-				for (let i = 0; i < playlists.length ; i++){
-					output += `${playlists[i].id}: ${playlists[i].name}\n`
+			const id = interaction.options.getString('id')
+			if (id){
+				const playlist = await caller.GetPlaylist(id)
+				if (playlist.response) await respond(interaction, playlist.response)
+				else{
+					let output = `Playlist ${playlist.name}:\n`
+					output += "```"
+
+					const songs = playlist.songs
+					if (songs.length === 0){
+						output += `Playlist is empty.\nYou can add a song with "/playlists add-song ${playlist.id} <song-url>"`
+					}else{
+						for (let i = 0; i < songs.length; i++){
+							output += `${songs[i].id}: ${songs[i].name}`
+						}
+					}
+					output += "```"
+					respond(interaction, output)
 				}
-				output += "```"
-				await respond(interaction, output)
 			}else{
-				await respond(interaction, 'No playlist found.')
+				let playlists = await caller.ListPlaylists(userId)
+				if (playlists.length > 0){
+					let output = "Playlists:\n```"
+					for (let i = 0; i < playlists.length ; i++){
+						output += `${playlists[i].id}: ${playlists[i].name}\n`
+					}
+					output += "```"
+					await respond(interaction, output)
+				}else{
+					await respond(interaction, 'No playlist found.')
+				}
 			}
 		}
 		else if (sub === "new"){
