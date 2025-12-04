@@ -146,7 +146,7 @@ export default {
 					output += `Created by : <@${author.user_id}>\n`
 					output += `Collaborators:`
 					playlist.collaborations.forEach((collaboration) => {
-						await caller.GetUserId(collaboration.collaborator).then(user => {
+						caller.GetUserId(collaboration.collaborator).then(user => {
 							output += ` <@${userId.user_id}>`
 						})
 					})
