@@ -81,8 +81,8 @@ const module = {
  		songs.forEach(song => {
  			module.queue.push(song)
  		})
- 		DownloadQueue()
- 		PlayDownloads(con, module.queue.length)
+ 		module.DownloadQueue()
+ 		module.PlayDownloads(con, module.queue.length)
  	}
 }
 export default module
