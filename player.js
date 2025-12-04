@@ -22,8 +22,8 @@ const module = {
 
 		return player
  	},
- 	ClearDownloads : () => {
- 		exec(`rm -r ./assets/audio/*`, (error, stdout, stderr) => {
+ 	ClearDownloads : async () => {
+ 		await execAsync(`rm -r ./assets/audio/*`, (error, stdout, stderr) => {
 	    	console.log(
 		        "error : `"+error+"`\n" +
 		        "stdout : `"+stdout+"`\n" +
@@ -32,6 +32,7 @@ const module = {
 	  	})
  	},
  	DownloadQueue : async () => {
+ 		await module.ClearDownloads()
  		while (module.queue.length != 0){
  			let song = module.queue[0]
  			if (ListFind(module.downloads,module.song.name)){
@@ -46,6 +47,7 @@ const module = {
  				module.downloads.push(downloadObj)
  			}
  		}
+ 		await module.ClearDownloads()
  	},
  	PlayDownloads : async (con, waitFor) => {
  		let songsPlayed = 0;
