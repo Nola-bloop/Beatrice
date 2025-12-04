@@ -93,6 +93,7 @@ export default {
 				if (playlist.response) await respond(interaction, playlist.response)
 				else{
 					let output = `Playlist ${playlist.name}:\n`
+					output += `length in minutes: ${Math.floor(playlist.length/60)}`
 					output += "```"
 
 					const songs = playlist.songs
@@ -100,7 +101,7 @@ export default {
 						output += `Playlist is empty.\nYou can add a song with "/playlists add-song id:${playlist.id} <song-url>"`
 					}else{
 						for (let i = 0; i < songs.length; i++){
-							output += `${songs[i].id}: ${songs[i].name}`
+							output += `${songs[i].id}: ${songs[i].name}\n`
 						}
 					}
 					output += "```"
