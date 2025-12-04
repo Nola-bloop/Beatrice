@@ -80,19 +80,20 @@ export default {
 		else if (sub === "new"){
 			let name = interaction.options.getString('name')
 			caller.CreatePlaylist(name, userId)
-			await interaction.reply({ content: 'Use `/playlist-list` to confirm creation.', flags: MessageFlags.Ephemeral })
+			await interaction.reply({ content: 'Use `/playlist list` to confirm creation.', flags: MessageFlags.Ephemeral })
 		}
 		else if (sub === "edit"){
 			let id = interaction.options.getString('id')
 			let newName = interaction.options.getString('name')
 			let newAuthor = interaction.options.getUser('author')
+			console.log(newAuthor.id)
 			await caller.UpdatePlaylist(userId, id, newName, newAuthor.id)
-			await respond(interaction, 'Use `/playlist-list` to confirm update.')
+			await respond(interaction, 'Use `/playlist list` to confirm update.')
 		}
 		else if (sub === "rm"){
 			let id = interaction.options.getString('id')
 			await caller.DeletePlaylist(id, userId)
-			await respond(interaction, 'Use `/playlist-list` to confirm removal.')
+			await respond(interaction, 'Use `/playlist list` to confirm removal.')
 		}
 	}
 };
