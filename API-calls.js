@@ -2,9 +2,11 @@ const API_URL = "http://107.152.41.172:8888"
 const module = {
 	CreatePlaylist: async (name, userId) => {
 		const url = `${API_URL}/playlist?name=${name}&userId=${userId}`;
-		await fetch(url, {
+		const response = await fetch(url, {
 		  method: "POST"
 		});
+		let data = await response.json()
+		return data
 	},
 	ListPlaylists: async (userId) => {
 		const url = `${API_URL}/playlist/user/${userId}`;
@@ -37,6 +39,7 @@ const module = {
 		  method: "PUT"
 		});
 		let data = await response.json()
+		return data
 	},
 	DeletePlaylist: async (id, userId) => {
 		const url = `${API_URL}/playlist?id=${id}&userId=${userId}`;
@@ -44,6 +47,7 @@ const module = {
 		  method: "DELETE"
 		});
 		let data = await response.json()
+		return data
 	},
 	AddSong : async (userId, url, playlistId) => {
 		const fetchUrl = `${API_URL}/song?userId=${userId}&url=${url}&playlistId=${playlistId}`;
@@ -51,6 +55,7 @@ const module = {
 		  method: "POST"
 		});
 		let data = await response.json()
+		return data
 	}
 }
 

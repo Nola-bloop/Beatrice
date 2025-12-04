@@ -140,8 +140,9 @@ export default {
 		else if (sub === "add-song"){
 			let id = interaction.options.getString('id')
 			let url = interaction.options.getString('url')
-			await caller.AddSong(userId, url, id)
-			await respond(interaction, 'Use `/playlists list id:'+id+'` to confirm addition.')
+			let response = await caller.AddSong(userId, url, id)
+			if (response.response != "success") await respond(interaction, response.response)
+			else await respond(interaction, 'Use `/playlists list id:'+id+'` to confirm addition.')
 		}
 	}
 };
