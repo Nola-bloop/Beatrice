@@ -211,6 +211,7 @@ export default {
 			let collaborator = interaction.options.getUser('collaborator')
 			let playlistId = interaction.options.getString('playlist-id')
 			let response = await caller.InviteCollaborator(userId, collaborator.id, playlistId)
+			console.log("THE API RESPONSE: " + response)
 			await respond(interaction, response.response)
 		}
 		else if (sub === "uninvite"){
