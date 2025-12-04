@@ -13,7 +13,7 @@ export default {
 			subCommand
 				.setName('list')
 				.setDescription('Show playlists or info of one.')
-				.addUserOption(option =>
+				.addStringOption(option =>
 		        	option
 		        		.setName('id')
 		        		.setDescription('The id of the list to show the info of (optional).')
