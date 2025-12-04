@@ -146,7 +146,8 @@ export default {
 					output += `Created by : <@${author.user_id}>\n`
 					output += `Collaborators:`
 					playlist.collaborations.forEach(collaboration => {
-						output += ` <@${collaboration.collaborator}>`
+						let user = caller.GetUserId(collaboration.collaborator)
+						output += ` <@${userId.user_id}>`
 					})
 					if (playlist.collaborations.length === 0) output += "none"
 					output += "\n"
