@@ -33,11 +33,11 @@ const module = {
 		if (name) url+=`name=${name}&`
 		if (author) url+=`author=${author}&`
 		url = url.slice(0, -1)
+		console.log(url)
 		const response = await fetch(url, {
 		  method: "PUT"
 		});
 		let data = await response.json()
-		console.log(data)
 	},
 	DeletePlaylist: async (id, userId) => {
 		const url = `${API_URL}/playlist?id=${id}&userId=${userId}`;

@@ -86,7 +86,6 @@ export default {
 			let id = interaction.options.getString('id')
 			let newName = interaction.options.getString('name')
 			let newAuthor = interaction.options.getUser('author')
-			console.log(newAuthor.id)
 			await caller.UpdatePlaylist(userId, id, newName, newAuthor.id)
 			await respond(interaction, 'Use `/playlist list` to confirm update.')
 		}
