@@ -1,8 +1,8 @@
-import { SlashCommandBuilder } from 'discord.js';
+import { SlashCommandBuilder, MessageFlags } from 'discord.js';
 import caller from '../API-calls.js';
 
 async function respond(interaction, message){
-	await interaction.reply({ content: message, ephemeral: true })
+	await interaction.reply({ content: message, flags: MessageFlags.Ephemeral })
 }
 
 export default {
