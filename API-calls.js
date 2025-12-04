@@ -33,7 +33,6 @@ const module = {
 		if (name) url+=`name=${name}&`
 		if (author) url+=`author=${author}&`
 		url = url.slice(0, -1)
-		console.log(url)
 		const response = await fetch(url, {
 		  method: "PUT"
 		});
