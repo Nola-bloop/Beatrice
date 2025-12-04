@@ -5,51 +5,55 @@ export default {
 	data: new SlashCommandBuilder()
 		.setName('playlist')
 		.setDescription('Manage playlists')
-		.addSubcommand( new SlashCommandBuilder()
-			.setName('list')
-			.setDescription('Show playlists.')
+		.addSubcommand(subCommand =>
+			subCommand
+				.setName('list')
+				.setDescription('Show playlists.')
 		)
-		.addSubcommand( new SlashCommandBuilder()
-			.setName('new')
-			.setDescription('Create a playlist.')
-			.addStringOption(option =>
-	        	option
-	        		.setName('name')
-	        		.setDescription('The name of your new playlist.')
-	        		.setRequired(true)
-	        )
+		.addSubcommand(subCommand =>
+			subCommand
+				.setName('new')
+				.setDescription('Create a playlist.')
+				.addStringOption(option =>
+		        	option
+		        		.setName('name')
+		        		.setDescription('The name of your new playlist.')
+		        		.setRequired(true)
+		        )
 		)
-		.addSubcommand( new SlashCommandBuilder()
-			.setName('edit')
-			.setDescription('Edit a playlist.')
-	        .addStringOption(option =>
-	        	option
-	        		.setName('id')
-	        		.setDescription('The id of your new playlist (shown in the "playlist-list" output).')
-	        		.setRequired(true)
-	        )
-	        .addStringOption(option =>
-	        	option
-	        		.setName('name')
-	        		.setDescription('The new name of your playlist.')
-	        		.setRequired(false)
-	        )
-	        .addUserOption(option =>
-	        	option
-	        		.setName('author')
-	        		.setDescription('Delegate ownership of your playlist to another user.')
-	        		.setRequired(false)
-	        )
+		.addSubcommand(subCommand =>
+			subCommand
+				.setName('edit')
+				.setDescription('Edit a playlist.')
+		        .addStringOption(option =>
+		        	option
+		        		.setName('id')
+		        		.setDescription('The id of your new playlist (shown in the "playlist-list" output).')
+		        		.setRequired(true)
+		        )
+		        .addStringOption(option =>
+		        	option
+		        		.setName('name')
+		        		.setDescription('The new name of your playlist.')
+		        		.setRequired(false)
+		        )
+		        .addUserOption(option =>
+		        	option
+		        		.setName('author')
+		        		.setDescription('Delegate ownership of your playlist to another user.')
+		        		.setRequired(false)
+		        )
 		)
-		.addSubcommand( new SlashCommandBuilder()
-			.setName('rm')
-			.setDescription('Remove a playlist.')
-	        .addStringOption(option =>
-	        	option
-	        		.setName('id')
-	        		.setDescription('The id of your new playlist (shown in the "playlist-list" output).')
-	        		.setRequired(true)
-	        )
+		.addSubcommand(subCommand =>
+			subCommand
+				.setName('rm')
+				.setDescription('Remove a playlist.')
+		        .addStringOption(option =>
+		        	option
+		        		.setName('id')
+		        		.setDescription('The id of your new playlist (shown in the "playlist-list" output).')
+		        		.setRequired(true)
+		        )
 		),
 
 	async execute(interaction) {
