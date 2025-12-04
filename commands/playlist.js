@@ -116,7 +116,7 @@ export default {
 				.setDescription('Uninvite a collaborator.')
 				.addStringOption(option =>
 					option
-						.setName('id')
+						.setName('collaborator')
 						.setDescription('The id of the playlist.')
 						.setRequired(true)
 				)
