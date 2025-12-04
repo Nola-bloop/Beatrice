@@ -88,8 +88,42 @@ export default {
 				.setDescription('Remove a song from a playlist.')
 				.addStringOption(option =>
 					option
-						.setName('id')
+						.setName('playlist-id')
 						.setDescription('The id of the song to remove.')
+						.setRequired(true)
+				)
+		)
+		.addSubcommand(subCommand =>
+			subCommand
+				.setName('invite')
+				.setDescription('Invite a collaborator.')
+				.addStringOption(option =>
+					option
+						.setName('playlist-id')
+						.setDescription('The id of the playlist.')
+						.setRequired(true)
+				)
+				.addUserOption(option =>
+					option
+						.setName('collaborator')
+						.setDescription('The user to invite as collaborator.')
+						.setRequired(true)
+				)
+		)
+		.addSubcommand(subCommand =>
+			subCommand
+				.setName('uninvite')
+				.setDescription('Uninvite a collaborator.')
+				.addStringOption(option =>
+					option
+						.setName('id')
+						.setDescription('The id of the playlist.')
+						.setRequired(true)
+				)
+				.addUserOption(option =>
+					option
+						.setName('collaborator')
+						.setDescription('The user to uninvite (remove) as collaborator.')
 						.setRequired(true)
 				)
 		),
@@ -172,6 +206,18 @@ export default {
 			let id = interaction.options.getString('id')
 			let response = await caller.RemoveSong(userId, id)
 			await respond(interaction, response.response)
-		}	
+		}
+		else if (sub === "invite"){
+			let collaborator = interaction.options.getUser('collaborator')
+			let playlistId = interaction.options.getString('playlist-id')
+			let response = await caller.Invite(userId, collaborator.id, playlistId)
+			await respond(interaction, response.response)
+		}
+		else if (sub === "uninvite"){
+			let collaborator = interaction.options.getUser('collaborator')
+			let playlistId = interaction.options.getString('playlist-id')
+			let response = await caller.Uninvite(userId, collaborator.id, playlistId)
+			await respond(interaction, response.response)
+		}
 	}
 };
