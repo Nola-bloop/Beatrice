@@ -146,8 +146,8 @@ export default {
 					output += `Created by : <@${author.user_id}>\n`
 					output += `Collaborators:`
 					for (let i = 0; i < playlist.collaborations.length; i++) {
-						let user = await caller.GetUserId(playlist.collaborations[i].collaborator)
-						output += ` <@${userId.user_id}>`
+						let collaborator = await caller.GetUserId(playlist.collaborations[i].collaborator)
+						output += ` <@${collaborator.user_id}>`
 					}
 					if (playlist.collaborations.length === 0) output += "none"
 					output += "\n"
