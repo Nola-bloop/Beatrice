@@ -145,11 +145,10 @@ export default {
 					let output = `Playlist ${playlist.name}:\n`
 					output += `Created by : <@${author.user_id}>\n`
 					output += `Collaborators:`
-					playlist.collaborations.forEach((collaboration) => {
-						caller.GetUserId(collaboration.collaborator).then(user => {
-							output += ` <@${userId.user_id}>`
-						})
-					})
+					for (let i = 0; i < playlist.collaborations.length; i++) {
+						let user = await caller.GetUserId(playlist.collaborations[i].collaborator)
+						output += ` <@${userId.user_id}>`
+					}
 					if (playlist.collaborations.length === 0) output += "none"
 					output += "\n"
 					output += `Length : ${Math.floor(playlist.total_time/60)} minutes\n`
