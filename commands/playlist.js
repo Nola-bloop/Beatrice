@@ -97,7 +97,7 @@ export default {
 
 					const songs = playlist.songs
 					if (songs.length === 0){
-						output += `Playlist is empty.\nYou can add a song with "/playlists add-song ${playlist.id} <song-url>"`
+						output += `Playlist is empty.\nYou can add a song with "/playlists add-song id:${playlist.id} <song-url>"`
 					}else{
 						for (let i = 0; i < songs.length; i++){
 							output += `${songs[i].id}: ${songs[i].name}`
@@ -123,25 +123,25 @@ export default {
 		else if (sub === "new"){
 			let name = interaction.options.getString('name')
 			caller.CreatePlaylist(name, userId)
-			await interaction.reply({ content: 'Use `/playlist list` to confirm creation.', flags: MessageFlags.Ephemeral })
+			await interaction.reply({ content: 'Use `/playlists list` to confirm creation.', flags: MessageFlags.Ephemeral })
 		}
 		else if (sub === "edit"){
 			let id = interaction.options.getString('id')
 			let newName = interaction.options.getString('name')
 			let newAuthor = interaction.options.getUser('author')
 			await caller.UpdatePlaylist(userId, id, newName, newAuthor.id)
-			await respond(interaction, 'Use `/playlist list` to confirm update.')
+			await respond(interaction, 'Use `/playlists list` to confirm update.')
 		}
 		else if (sub === "rm"){
 			let id = interaction.options.getString('id')
 			await caller.DeletePlaylist(id, userId)
-			await respond(interaction, 'Use `/playlist list` to confirm removal.')
+			await respond(interaction, 'Use `/playlists list` to confirm removal.')
 		}
 		else if (sub === "add-song"){
 			let id = interaction.options.getString('id')
 			let url = interaction.options.getString('url')
 			await caller.AddSong(userId, url, id)
-			await respond(interaction, 'Use `/playlist list '+id+'` to confirm addition.')
+			await respond(interaction, 'Use `/playlists list id:'+id+'` to confirm addition.')
 		}
 	}
 };
