@@ -67,7 +67,7 @@ const module = {
 		return data
 	},
 	RemoveSong : async (userId, songId) => {
-		const fetchUrl = `${API_URL}/song?userId=${userId}&songId=${songId}`;
+		const fetchUrl = `${API_URL}/song?userId=${userId}&id=${songId}`;
 		const response = await fetch(fetchUrl, {
 		  method: "DELETE"
 		});
