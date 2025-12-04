@@ -91,10 +91,14 @@ export default {
 			if (id){
 				const playlist = await caller.GetPlaylist(id)
 				if (playlist.response) await respond(interaction, playlist.response)
+
+				const author = await caller.GetUserId(playlist.author)
+				if (author.response) await respond(interaction, author.response)
+
 				else{
 					let output = `Playlist ${playlist.name}:\n`
-					output +=
-					output += `Length : ${Math.floor(playlist.total_time/60)}m`
+					output += `Created by : <@${author.user_id}>\n`
+					output += `Length : ${Math.floor(playlist.total_time/60)}m\n`
 					output += "```"
 
 					const songs = playlist.songs
