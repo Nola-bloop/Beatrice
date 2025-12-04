@@ -1,5 +1,6 @@
 import { SlashCommandBuilder, MessageFlags } from 'discord.js';
 import caller from '../API-calls.js';
+import player from '../player.js';
 
 async function respond(interaction, message){
 	await interaction.reply({ content: message, flags: MessageFlags.Ephemeral })
@@ -126,6 +127,17 @@ export default {
 						.setDescription('The user to uninvite (remove) as collaborator.')
 						.setRequired(true)
 				)
+		)
+		.addSubcommand(subCommand =>
+			subCommand
+				.setName('play')
+				.setDescription('Play a playlist.')
+				.addStringOption(option =>
+					option
+						.setName('playlist-id')
+						.setDescription('The id of the playlist.')
+						.setRequired(true)
+				)
 		),
 
 	async execute(interaction) {
@@ -219,6 +231,27 @@ export default {
 			let collaborator = interaction.options.getUser('collaborator')
 			let playlistId = interaction.options.getString('playlist-id')
 			let response = await caller.UninviteCollaborator(userId, collaborator.id, playlistId)
+			await respond(interaction, response.response)
+		}
+		else if (sub === "play"){
+			let playlistId = interaction.options.getString('playlist-id')
+			let playlist = await caller.GetPlaylist(playlistId)
+
+			let channel = interaction.member.voice.channel
+			if (!channel) {
+				await respond(interaction, "You need to be in a channel.")
+				return;
+		    }
+
+			let connection = joinVoiceChannel({
+				channelId: channel.id,
+				guildId: channel.guild.id,
+				adapterCreator: channel.guild.voiceAdapterCreator
+			})
+
+			player.PlayList(connection, playlist.songs)
+
+
 			await respond(interaction, response.response)
 		}
 	}
