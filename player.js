@@ -53,21 +53,21 @@ const module = {
  		let songsPlayed = 0;
  		const playNext = () => {
 	        // stop condition
-	        if (songsPlayed >= waitFor && this.downloads.length === 0) {
+	        if (songsPlayed >= waitFor && module.downloads.length === 0) {
 	            return; 
 	        }
 
 	        // if nothing to play yet, wait and retry
-	        if (this.downloads.length === 0) {
+	        if (module.downloads.length === 0) {
 	            setTimeout(playNext, 250);
 	            return;
 	        }
 
-	        let next = this.downloads[0];
-	        let player = this.PlayFile(con, next.fileName);
+	        let next = module.downloads[0];
+	        let player = module.PlayFile(con, next.fileName);
 
 	        player.on(AudioPlayerStatus.Idle, () => {
-	            this.downloads.shift();
+	            module.downloads.shift();
 	            songsPlayed++;
 	            playNext(); // recursion, no loop needed
 	        });
