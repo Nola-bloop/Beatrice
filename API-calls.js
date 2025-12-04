@@ -2,10 +2,10 @@ const API_URL = "http://107.152.41.172:8888"
 const module = {
 	GetUserId : async (id) => {
 		const fetchUrl = `${API_URL}/user/id/${id}`;
+		console.log(fetchUrl)
 		const response = await fetch(fetchUrl, {
 		  method: "POST"
 		});
-		console.log(response)
 		//let data = await response.json()
 		//return data
 		return {user_id:"1"}
