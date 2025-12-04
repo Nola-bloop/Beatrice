@@ -27,13 +27,14 @@ const module = {
  			if (error) console.log(error)
 	  	})
  	},
- 	DownloadQueue : async () => {
+ 	DownloadQueue : async (res) => {
  		await module.ClearDownloads()
  		while (module.queue.length != 0){
  			let song = module.queue[0]
  			if (ListFind(module.downloads,module.song.name)){
  				queue.shift()
  			}else{
+ 				res(`Downloading ${song.name}`)
  				await execAsync(`yt-dlp -P ./assets/audio/ --force-overwrites -o '${song.name}.mp3' -t mp3 ${song.url}`)
  				let downloadObj = {
  					name:`${song.name}`,
@@ -45,7 +46,7 @@ const module = {
  		}
  		await module.ClearDownloads()
  	},
- 	PlayDownloads : async (con, waitFor) => {
+ 	PlayDownloads : async (con, waitFor, res) => {
  		let songsPlayed = 0;
  		const playNext = () => {
 	        // stop condition
@@ -60,6 +61,7 @@ const module = {
 	        }
 
 	        let next = module.downloads[0];
+	        res(`Playing ${song.name}`)
 	        let player = module.PlayFile(con, next.fileName);
 
 	        player.on(AudioPlayerStatus.Idle, () => {
@@ -72,13 +74,13 @@ const module = {
 	    playNext();
  	},
  	//[{"url":"abc","name":"123"}]
- 	PlayList : (con, songs) => {
+ 	PlayList : (con, songs, res) => {
 
  		songs.forEach(song => {
  			module.queue.push(song)
  		})
- 		module.DownloadQueue()
- 		module.PlayDownloads(con, module.queue.length)
+ 		module.DownloadQueue(res)
+ 		module.PlayDownloads(con, module.queue.length, res)
  	}
 }
 export default module

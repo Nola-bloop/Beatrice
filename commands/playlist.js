@@ -250,7 +250,9 @@ export default {
 				adapterCreator: channel.guild.voiceAdapterCreator
 			})
 
-			player.PlayList(connection, playlist.songs)
+			player.PlayList(connection, playlist.songs, (msg) => {
+				respond(interaction, msg)
+			})
 
 
 			await respond(interaction, "Downloading musics, it should start playing shortly.")
