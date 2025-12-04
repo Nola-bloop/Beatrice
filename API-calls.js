@@ -73,6 +73,22 @@ const module = {
 		});
 		let data = await response.json()
 		return data
+	},
+	InviteCollaborator : async (userId, collaboratorUserId, playlistId) => {
+		const fetchUrl = `${API_URL}/collaboration?userId=${userId}&collaborator=${collaboratorUserId}&playlistId=${playlistId}`;
+		const response = await fetch (fetchUrl, {
+			method: "POST"
+		})
+		let data = await response.json
+		return data
+	},
+	UninviteCollaborator : async (userId, collaboratorId, playlistId) => {
+		const fetchUrl = `${API_URL}/collaboration?userId=${userId}&collaborator=${collaboratorUserId}&playlistId=${playlistId}`;
+		const response = await fetch (fetchUrl, {
+			method: "DELETE"
+		})
+		let data = await response.json
+		return data
 	}
 }
 

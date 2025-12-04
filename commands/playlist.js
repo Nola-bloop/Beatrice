@@ -116,7 +116,7 @@ export default {
 					})
 					if (playlist.collaborations.length === 0) output += "none"
 					output += "\n"
-					output += `Length : ${Math.floor(playlist.total_time/60)}m\n`
+					output += `Length : ${Math.floor(playlist.total_time/60)} minutes\n`
 					output += "```"
 
 					const songs = playlist.songs
