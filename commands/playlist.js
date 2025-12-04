@@ -90,10 +90,10 @@ export default {
 			const id = interaction.options.getString('id')
 			if (id){
 				const playlist = await caller.GetPlaylist(id)
-				if (playlist.response) await respond(interaction, playlist.response)
+				if (playlist.response) return await respond(interaction, playlist.response)
 
 				const author = await caller.GetUserId(playlist.author)
-				if (author.response) await respond(interaction, author.response)
+				if (author.response) return await respond(interaction, author.response)
 
 				else{
 					let output = `Playlist ${playlist.name}:\n`
