@@ -4,7 +4,7 @@ const module = {
 		const fetchUrl = `${API_URL}/user/id/${id}`;
 		console.log(fetchUrl)
 		const response = await fetch(fetchUrl, {
-		  method: "POST"
+		  method: "GET"
 		});
 		let data = await response.json()
 		return data
