@@ -5,6 +5,7 @@ const module = {
 		const response = await fetch(fetchUrl, {
 		  method: "POST"
 		});
+		console.log(response)
 		let data = await response.json()
 		return data
 	},
