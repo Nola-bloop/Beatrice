@@ -75,7 +75,7 @@ const module = {
 		return data
 	},
 	InviteCollaborator : async (userId, collaboratorUserId, playlistId) => {
-		console.log({a:userId,b:collaboratorId, c:playlistId})
+		console.log({a:userId,b:collaboratorUserId, c:playlistId})
 		const fetchUrl = `${API_URL}/collaboration?userId=${userId}&collaborator=${collaboratorUserId}&playlistId=${playlistId}`;
 		const response = await fetch (fetchUrl, {
 			method: "POST"
@@ -83,7 +83,7 @@ const module = {
 		let data = await response.json
 		return data
 	},
-	UninviteCollaborator : async (userId, collaboratorId, playlistId) => {
+	UninviteCollaborator : async (userId, collaboratorUserId, playlistId) => {
 		const fetchUrl = `${API_URL}/collaboration?userId=${userId}&collaborator=${collaboratorUserId}&playlistId=${playlistId}`;
 		const response = await fetch (fetchUrl, {
 			method: "DELETE"
