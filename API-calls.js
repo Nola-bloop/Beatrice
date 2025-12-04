@@ -1,5 +1,13 @@
 const API_URL = "http://107.152.41.172:8888"
 const module = {
+	GetUserId : async (id) => {
+		const fetchUrl = `${API_URL}/user/id/${id}`;
+		const response = await fetch(fetchUrl, {
+		  method: "POST"
+		});
+		let data = await response.json()
+		return data
+	},
 	CreatePlaylist: async (name, userId) => {
 		const url = `${API_URL}/playlist?name=${name}&userId=${userId}`;
 		const response = await fetch(url, {
