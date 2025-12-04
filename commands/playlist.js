@@ -171,7 +171,8 @@ export default {
 		else if (sub === "rm-song"){
 			let id = interaction.options.getString('id')
 			let response = await caller.RemoveSong(userId, id)
-		}	if (response.response != "success") await respond(interaction, response.response)
+			if (response.response != "success") await respond(interaction, response.response)
 			else await respond(interaction, 'Use `/playlists list id:'+id+'` to confirm the removal.')
+		}	
 	}
 };
