@@ -31,7 +31,7 @@ const module = {
 	    	)
 	  	})
  	},
- 	async DownloadQueue : () => {
+ 	DownloadQueue : async () => {
  		while (module.queue.length != 0){
  			let song = module.queue[0]
  			if (ListFind(module.downloads,module.song.name)){
@@ -47,7 +47,7 @@ const module = {
  			}
  		}
  	},
- 	async PlayDownloads : (con, waitFor) => {
+ 	PlayDownloads : async (con, waitFor) => {
  		let songsPlayed = 0;
  		const playNext = () => {
 	        // stop condition
@@ -74,7 +74,7 @@ const module = {
 	    playNext();
  	},
  	//[{"url":"abc","name":"123"}]
- 	PlayList : async (con, songs) => {
+ 	PlayList : (con, songs) => {
 
  		songs.forEach(song => {
  			module.queue.push(song)
