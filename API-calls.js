@@ -6,8 +6,9 @@ const module = {
 		  method: "POST"
 		});
 		console.log(response)
-		let data = await response.json()
-		return data
+		//let data = await response.json()
+		//return data
+		return {user_id:"1"}
 	},
 	CreatePlaylist: async (name, userId) => {
 		const url = `${API_URL}/playlist?name=${name}&userId=${userId}`;
