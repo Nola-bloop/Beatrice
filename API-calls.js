@@ -46,8 +46,8 @@ const module = {
 		let data = await response.json()
 	},
 	AddSong : async (userId, url, playlistId) => {
-		const url = `${API_URL}/song?userId=${userId}&url=${url}&playlistId=${playlistId}`;
-		const response = await fetch(url, {
+		const fetchUrl = `${API_URL}/song?userId=${userId}&url=${url}&playlistId=${playlistId}`;
+		const response = await fetch(fetchUrl, {
 		  method: "POST"
 		});
 		let data = await response.json()

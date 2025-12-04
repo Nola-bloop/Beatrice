@@ -71,7 +71,7 @@ export default {
 				.addStringOption(option =>
 					option
 						.setName('url')
-						.setDescription('URL of the song to add. Only works with Youtube and Youtube Music links. Playlists are not supported yet.')
+						.setDescription('URL of the song to add. Only works with Youtube and Youtube Music links.')
 						.setRequired(true)
 				)
 		),
