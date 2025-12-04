@@ -210,13 +210,13 @@ export default {
 		else if (sub === "invite"){
 			let collaborator = interaction.options.getUser('collaborator')
 			let playlistId = interaction.options.getString('playlist-id')
-			let response = await caller.Invite(userId, collaborator.id, playlistId)
+			let response = await caller.InviteCollaborator(userId, collaborator.id, playlistId)
 			await respond(interaction, response.response)
 		}
 		else if (sub === "uninvite"){
 			let collaborator = interaction.options.getUser('collaborator')
 			let playlistId = interaction.options.getString('playlist-id')
-			let response = await caller.Uninvite(userId, collaborator.id, playlistId)
+			let response = await caller.UninviteCollaborator(userId, collaborator.id, playlistId)
 			await respond(interaction, response.response)
 		}
 	}
