@@ -44,6 +44,13 @@ const module = {
 		  method: "DELETE"
 		});
 		let data = await response.json()
+	},
+	AddSong : async (userId, url, playlistId) => {
+		const url = `${API_URL}/song?userId=${userId}&url=${url}&playlistId=${playlistId}`;
+		const response = await fetch(url, {
+		  method: "POST"
+		});
+		let data = await response.json()
 	}
 }
 

@@ -7,7 +7,7 @@ async function respond(interaction, message){
 
 export default {
 	data: new SlashCommandBuilder()
-		.setName('playlist')
+		.setName('playlists')
 		.setDescription('Manage playlists')
 		.addSubcommand(subCommand =>
 			subCommand
@@ -58,6 +58,22 @@ export default {
 		        		.setDescription('The id of your new playlist (shown in the "playlist-list" output).')
 		        		.setRequired(true)
 		        )
+		).addSubcommand(subCommand =>
+			subCommand
+				.setName('add-song')
+				.setDescription('Add a song to a playlist.')
+				.addStringOption(option =>
+					option
+						.setName('id')
+						.setDescription('The id of the playlist to add the song to.')
+						.setRequired(true)
+				)
+				.addStringOption(option =>
+					option
+						.setName('url')
+						.setDescription('URL of the song to add. Only works with Youtube and Youtube Music links. Playlists are not supported yet.')
+						.setRequired(true)
+				)
 		),
 
 	async execute(interaction) {
@@ -93,6 +109,12 @@ export default {
 			let id = interaction.options.getString('id')
 			await caller.DeletePlaylist(id, userId)
 			await respond(interaction, 'Use `/playlist list` to confirm removal.')
+		}
+		else if (sub === "add-song"){
+			let id = interaction.options.getString('id')
+			let url = interaction.options.getString('url')
+			await caller.AddSong(userId, url, id)
+			await respond(interaction, 'Use `/playlist list '+id+'` to confirm addition.')
 		}
 	}
 };
