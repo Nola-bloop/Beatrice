@@ -80,7 +80,7 @@ const module = {
 		const response = await fetch (fetchUrl, {
 			method: "POST"
 		})
-		let data = await response.json
+		let data = await response.json()
 		return data
 	},
 	UninviteCollaborator : async (userId, collaboratorUserId, playlistId) => {
@@ -88,7 +88,7 @@ const module = {
 		const response = await fetch (fetchUrl, {
 			method: "DELETE"
 		})
-		let data = await response.json
+		let data = await response.json()
 		return data
 	}
 }
