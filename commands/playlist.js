@@ -90,7 +90,7 @@ export default {
 				.setDescription('Remove a song from a playlist.')
 				.addStringOption(option =>
 					option
-						.setName('playlist-id')
+						.setName('song-id')
 						.setDescription('The id of the song to remove.')
 						.setRequired(true)
 				)
@@ -217,7 +217,7 @@ export default {
 			else await respond(interaction, 'Use `/playlists list id:'+id+'` to confirm addition.')
 		}
 		else if (sub === "rm-song"){
-			let id = interaction.options.getString('id')
+			let id = interaction.options.getString('song-id')
 			let response = await caller.RemoveSong(userId, id)
 			await respond(interaction, response.response)
 		}
