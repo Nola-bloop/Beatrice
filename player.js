@@ -3,7 +3,7 @@ import { exec } from "child_process";
 
 const execAsync = util.promisify(exec);
 
-const module = {
+const playerModule = {
 	queue:[],
 	downloads:[],
 	ListFind : (list,songName) => {
@@ -30,15 +30,15 @@ const module = {
  	DownloadQueue : async (res) => {
 
 	    const processNext = async () => {
-	        if (module.queue.length === 0) {
+	        if (playerModule.queue.length === 0) {
 	            return;
 	        }
 
-	        let song = module.queue[0];
+	        let song = playerModule.queue[0];
 
 	        // Already downloaded?
-	        if (module.ListFind(module.downloads, song.name) !== -1) {
-	            module.queue.shift();
+	        if (playerModule.ListFind(playerModule.downloads, song.name) !== -1) {
+	            playerModule.queue.shift();
 	            setImmediate(processNext);
 	            return;
 	        }
@@ -52,14 +52,14 @@ const module = {
 	        );
 
 	        // Add to downloads
-	        module.downloads.push({
+	        playerModule.downloads.push({
 	            name: song.name,
 	            url: song.url,
 	            fileName: `${song.name}.mp3`,
 	        });
 
 	        // Remove from queue
-	        module.queue.shift();
+	        playerModule.queue.shift();
 
 	        // Continue (non-blocking)
 	        setImmediate(processNext);
@@ -72,22 +72,22 @@ const module = {
  		let songsPlayed = 0;
  		const playNext = () => {
 	        // stop condition
-	        if (songsPlayed >= waitFor && module.downloads.length === 0) {
+	        if (songsPlayed >= waitFor && playerModule.downloads.length === 0) {
 	            return; 
 	        }
 
 	        // if nothing to play yet, wait and retry
-	        if (module.downloads.length === 0) {
+	        if (playerModule.downloads.length === 0) {
 	            setTimeout(playNext, 250);
 	            return;
 	        }
 
-	        let next = module.downloads[0];
+	        let next = playerModule.downloads[0];
 	        res(`Playing ${song.name}`)
-	        let player = module.PlayFile(con, next.fileName);
+	        let player = playerModule.PlayFile(con, next.fileName);
 
 	        player.on(AudioPlayerStatus.Idle, () => {
-	            module.downloads.shift();
+	            playerModule.downloads.shift();
 	            songsPlayed++;
 	            playNext(); // recursion, no loop needed
 	        });
@@ -98,10 +98,10 @@ const module = {
  	//[{"url":"abc","name":"123"}]
  	PlayList : (con, songs, res) => {
  		songs.forEach(song => {
- 			module.queue.push(song)
+ 			playerModule.queue.push(song)
  		})
- 		module.DownloadQueue(res)
- 		module.PlayDownloads(con, module.queue.length, res)
+ 		playerModule.DownloadQueue(res)
+ 		playerModule.PlayDownloads(con, playerModule.queue.length, res)
  	}
 }
-export default module
+export default playerModule
