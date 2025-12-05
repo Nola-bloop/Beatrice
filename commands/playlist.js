@@ -7,6 +7,8 @@ async function respond(interaction, message){
 	await interaction.reply({ content: message, flags: MessageFlags.Ephemeral })
 }
 
+let connection;
+
 export default {
 	data: new SlashCommandBuilder()
 		.setName('playlists')
@@ -244,7 +246,7 @@ export default {
 				return;
 		    }
 
-			let connection = joinVoiceChannel({
+			connection = joinVoiceChannel({
 				channelId: channel.id,
 				guildId: channel.guild.id,
 				adapterCreator: channel.guild.voiceAdapterCreator
@@ -252,7 +254,7 @@ export default {
 
 			player.PlayList(connection, playlist.songs, (msg) => {
 				respond(interaction, msg)
-				debug.log(msg)
+				console.log(msg)
 			})
 
 
