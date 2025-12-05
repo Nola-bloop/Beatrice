@@ -28,7 +28,7 @@ const music = {
     }
   },
 
-  async _downloader(res) {
+  async _downloader() {
     while (this.queue.length > 0) {
       const song = this.queue.shift();
 
@@ -39,7 +39,7 @@ const music = {
         continue;
       }
 
-      res(`Downloading ${song.name}`);
+      console.log(`Downloading ${song.name}`);
       try {
         await execAsync(
           `yt-dlp -P ./assets/audio/ --force-overwrites -o "${song.name}.mp3" -f mp3 ${song.url}`
@@ -47,7 +47,7 @@ const music = {
         song.fileName = `${song.name}.mp3`;
         this.downloads.push(song);
         song.deferred.resolve();
-        res(`Finished downloading ${song.name}`);
+        console.log(`Finished downloading ${song.name}`);
       } catch (err) {
         song.deferred.reject(err);
         console.error(`Failed to download ${song.name}`, err);
@@ -63,9 +63,9 @@ const music = {
     return player;
   },
 
-  async playAll(con, res) {
+  async playAll(con) {
     // Start the downloader in background (non-blocking)
-    this._downloader(res).catch(err => {
+    this._downloader().catch(err => {
       console.error("Downloader error:", err);
     });
 
@@ -74,7 +74,7 @@ const music = {
       // Wait until this song is downloaded
       await song.deferred.promise;
 
-      res(`Playing ${song.name}`);
+      console.log(`Playing ${song.name}`);
       const player = this.playFile(con, song.fileName);
 
       // Wait until end
@@ -86,13 +86,13 @@ const music = {
       // Then loop to next song
     }
 
-    res("Playlist finished.");
+    console.log("Playlist finished.");
   },
 
   // Public API
-  async PlayList(con, songs, res) {
+  async PlayList(con, songs) {
     this.enqueue(songs);
-    await this.playAll(con, res);
+    await this.playAll(con);
   },
 
   async ClearDownloads() {
