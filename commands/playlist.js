@@ -253,7 +253,6 @@ export default {
 			})
 
 			player.PlayList(connection, playlist.songs, (msg) => {
-				respond(interaction, msg)
 				console.log(msg)
 			})
 
