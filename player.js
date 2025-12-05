@@ -1,5 +1,10 @@
 import util from "util";
 import { exec } from "child_process";
+import {
+    createAudioPlayer,
+    createAudioResource,
+    AudioPlayerStatus
+} from "@discordjs/voice";
 
 const execAsync = util.promisify(exec);
 
@@ -23,9 +28,7 @@ const playerModule = {
 		return player
  	},
  	ClearDownloads : async () => {
- 		await execAsync(`rm -r --interactive=never ./assets/audio/*`, (error, stdout, stderr) => {
- 			if (error) console.log(error)
-	  	})
+ 		await execAsync(`rm -r --interactive=never ./assets/audio/*`)
  	},
  	DownloadQueue : async (res) => {
 
@@ -83,7 +86,7 @@ const playerModule = {
 	        }
 
 	        let next = playerModule.downloads[0];
-	        res(`Playing ${song.name}`)
+	        res(`Playing ${next.name}`)
 	        let player = playerModule.PlayFile(con, next.fileName);
 
 	        player.on(AudioPlayerStatus.Idle, () => {
