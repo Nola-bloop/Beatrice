@@ -43,7 +43,7 @@ const music = {
       console.log(`Downloading ${song.name}`);
       try {
         await execAsync(
-          `yt-dlp -P ./assets/audio/ --force-overwrites -o "${song.name}.m4a" -f m4a ${song.url}`
+          `yt-dlp -P ./assets/audio/ --cookies ./.cookies.txt --user-agent "Mozilla/5.0" --referer "https://www.youtube.com/" --force-overwrites -o "${song.name}.m4a" -f m4a ${song.url}`
         );
         song.fileName = `${song.name}.m4a`;
         this.downloads.push(song);
