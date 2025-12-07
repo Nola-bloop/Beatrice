@@ -1,13 +1,30 @@
 import util from "util";
-import { exec } from "child_process";
+import { exec, spawn } from "child_process";
 import {
   createAudioPlayer,
   createAudioResource,
   AudioPlayerStatus,
   StreamType
 } from "@discordjs/voice";
-
 const execAsync = util.promisify(exec);
+
+function streamWithYtDlp(con, url) {
+  const ytdlp = spawn("yt-dlp", [
+    "-f", "bestaudio",
+    "-o", "-",
+    url
+  ]);
+
+  const resource = createAudioResource(ytdlp.stdout, {
+    inputType: StreamType.Arbitrary
+  });
+
+  const player = createAudioPlayer();
+  con.subscribe(player);
+  player.play(resource);
+
+  return { player, process: ytdlp };
+}
 
 function makeDeferred() {
   let resolve, reject;
@@ -123,6 +140,7 @@ const music = {
     // con.subscribe(player);
 
     // return player;
+    streamWithYtDlp(con, "https://www.youtube.com/watch?v=xGGtN5XMOiI")
   }
 };
 
