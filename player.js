@@ -10,6 +10,7 @@ const execAsync = util.promisify(exec);
 
 function streamWithYtDlp(con, url) {
   const ytdlp = spawn("yt-dlp", [
+    "--cookies", "./cookies.txt",
     "-f", "bestaudio",
     "-o", "-",
     url
