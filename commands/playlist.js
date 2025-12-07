@@ -141,6 +141,11 @@ export default {
 						.setDescription('The id of the playlist.')
 						.setRequired(true)
 				)
+		)
+		.addSubcommand(subCommand =>
+			subCommand
+				.setName('test')
+				.setDescription('Test player.')
 		),
 
 	async execute(interaction) {
@@ -256,6 +261,20 @@ export default {
 
 
 			await respond(interaction, "Downloading musics, it should start playing shortly.")
+		}
+		else if (sub == "test"){
+			let channel = interaction.member.voice.channel
+			if (!channel) {
+				await respond(interaction, "You need to be in a channel.")
+				return;
+		    }
+
+			connection = joinVoiceChannel({
+				channelId: channel.id,
+				guildId: channel.guild.id,
+				adapterCreator: channel.guild.voiceAdapterCreator
+			})
+			player.PlayTest(connection)
 		}
 	}
 };

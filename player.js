@@ -3,7 +3,8 @@ import { exec } from "child_process";
 import {
   createAudioPlayer,
   createAudioResource,
-  AudioPlayerStatus
+  AudioPlayerStatus,
+  StreamType
 } from "@discordjs/voice";
 
 const execAsync = util.promisify(exec);
@@ -30,7 +31,7 @@ const music = {
 
   async _downloader() {
     while (this.queue.length > 0) {
-      const song = this.queue.shift();
+      const song = this.queue[0];
 
       if (this.downloads.some(d => d.name === song.name)) {
         // Already downloaded — skip
@@ -42,14 +43,16 @@ const music = {
       console.log(`Downloading ${song.name}`);
       try {
         await execAsync(
-          `yt-dlp -P ./assets/audio/ --force-overwrites -o "${song.name}.mp3" -f mp3 ${song.url}`
+          `yt-dlp -P ./assets/audio/ --force-overwrites -o "${song.name}.m4a" -f m4a ${song.url}`
         );
-        song.fileName = `${song.name}.mp3`;
+        song.fileName = `${song.name}.m4a`;
         this.downloads.push(song);
+        this.queue.shift()
         song.deferred.resolve();
         console.log(`Finished downloading ${song.name}`);
       } catch (err) {
         song.deferred.reject(err);
+        this.queue.shift()
         console.error(`Failed to download ${song.name}`, err);
       }
     }
@@ -99,6 +102,27 @@ const music = {
     await execAsync(`rm -rf ./assets/audio/*`);
     this.queue = [];
     this.downloads = [];
+  },
+  PlayTest : async (con) => {
+    // const player = createAudioPlayer();
+
+    // const url = "https://www.youtube.com/watch?v=xGGtN5XMOiI";
+
+    // play.setToken({ youtube: { cookie: "" } });
+
+    // const { stream } = await play.stream_from_info(
+    //   await play.video_info(url),
+    //   { quality: 2 }
+    // );
+
+    // const resource = createAudioResource(stream, {
+    //   inputType: StreamType.Arbitrary,
+    // });
+
+    // player.play(resource);
+    // con.subscribe(player);
+
+    // return player;
   }
 };
 
