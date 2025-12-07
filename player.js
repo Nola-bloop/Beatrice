@@ -6,26 +6,81 @@ import {
   AudioPlayerStatus,
   StreamType
 } from "@discordjs/voice";
+import play from "play-dl";
 const execAsync = util.promisify(exec);
 
-function streamWithYtDlp(con, url) {
-  const ytdlp = spawn("yt-dlp", [
-    "--cookies", "./cookies.txt",
-    "-f", "bestaudio",
-    "-o", "-",
-    url
-  ]);
+const blacklist = [
+  " - Topic",
+  "VEVO",
+  "Official Artist Channel"
+];
 
-  const resource = createAudioResource(ytdlp.stdout, {
-    inputType: StreamType.Arbitrary
+function parseISO8601Duration(duration) {
+    const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
+
+    const hours = parseInt(match[1] || 0);
+    const minutes = parseInt(match[2] || 0);
+    const seconds = parseInt(match[3] || 0);
+
+    return hours * 3600 + minutes * 60 + seconds;
+}
+
+function cleanArtist(name) {
+  let out = name;
+  for (const bad of blacklist) {
+    out = out.replace(bad, "");
+  }
+  return out.trim();
+}
+
+async function Stream(con, url) {
+  const service = DetectSource(url)
+
+  let details = {}
+
+  if (service == "youtube"){
+    const url = `https://www.googleapis.com/youtube/v3/videos?id=${videoId}&part=snippet,contentDetails&key=${process.env.YOUTUBE_API_KEY}`;
+    const response = await fetch(url);
+    const videoObj = await response.json();
+
+    const data = videoObj.items[0];
+    const title = data.snippet.title;
+    const artist = cleanArtist(data.snippet.channelTitle);
+    const songLength = parseISO8601Duration(data.contentDetails.duration);
+
+    details = {
+      title = title,
+      artist = artist,
+      songLength = songLength
+    }
+  }
+
+
+
+
+  const stream = await play.stream(url, {
+    quality: 2,
+  });
+
+  const resource = createAudioResource(stream.stream, {
+    inputType: stream.type,
   });
 
   const player = createAudioPlayer();
   con.subscribe(player);
   player.play(resource);
 
-  return { player, process: ytdlp };
+  return player, title;
 }
+
+function DetectSource(url) {
+  if (url.includes("soundcloud.com")) return "soundcloud";
+  if (url.includes("spotify.com")) return "spotify";
+  if (url.includes("youtube.com") || url.includes("youtu.be")) return "youtube";
+  return "unknown";
+}
+
+
 
 function makeDeferred() {
   let resolve, reject;
@@ -141,7 +196,7 @@ const music = {
     // con.subscribe(player);
 
     // return player;
-    streamWithYtDlp(con, "https://www.youtube.com/watch?v=xGGtN5XMOiI")
+    Stream(con, "https://www.youtube.com/watch?v=xGGtN5XMOiI")
   }
 };
 

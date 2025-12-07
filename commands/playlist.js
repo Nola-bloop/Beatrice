@@ -242,28 +242,30 @@ export default {
 			await respond(interaction, response.response)
 		}
 		else if (sub === "play"){
-			let playlistId = interaction.options.getString('playlist-id')
-			let playlist = await caller.GetPlaylist(playlistId)
+			await respond(interaction, "Command temporarily unavalable.")
+			// let playlistId = interaction.options.getString('playlist-id')
+			// let playlist = await caller.GetPlaylist(playlistId)
 
-			let channel = interaction.member.voice.channel
-			if (!channel) {
-				await respond(interaction, "You need to be in a channel.")
-				return;
-		    }
+			// let channel = interaction.member.voice.channel
+			// if (!channel) {
+			// 	await respond(interaction, "You need to be in a channel.")
+			// 	return;
+		    // }
 
-			connection = joinVoiceChannel({
-				channelId: channel.id,
-				guildId: channel.guild.id,
-				adapterCreator: channel.guild.voiceAdapterCreator
-			})
+			// connection = joinVoiceChannel({
+			// 	channelId: channel.id,
+			// 	guildId: channel.guild.id,
+			// 	adapterCreator: channel.guild.voiceAdapterCreator
+			// })
 
-			player.PlayList(connection, playlist.songs)
+			// player.PlayList(connection, playlist.songs)
 
 
-			await respond(interaction, "Downloading musics, it should start playing shortly.")
+			// await respond(interaction, "Downloading musics, it should start playing shortly.")
 		}
 		else if (sub == "test"){
-			let channel = interaction.member.voice.channel
+			await respond(interaction, "Command is disabled.")
+			/*let channel = interaction.member.voice.channel
 			if (!channel) {
 				await respond(interaction, "You need to be in a channel.")
 				return;
@@ -274,7 +276,7 @@ export default {
 				guildId: channel.guild.id,
 				adapterCreator: channel.guild.voiceAdapterCreator
 			})
-			player.PlayTest(connection)
+			player.PlayTest(connection)*/
 		}
 	}
 };
