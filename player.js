@@ -49,9 +49,9 @@ async function Stream(con, url) {
     const songLength = parseISO8601Duration(data.contentDetails.duration);
 
     details = {
-      title = title,
-      artist = artist,
-      songLength = songLength
+      title : title,
+      artist : artist,
+      songLength : songLength
     }
   }
 
