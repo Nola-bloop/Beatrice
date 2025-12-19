@@ -18,6 +18,7 @@ import {
   copypastas as COPYPASTAS,
   legalAdvice as LEGAL_ADVICE,
   facts as FACTS,
+  emojis as EMOJIS,
 } from './resources/responses.js';
 
 import {
@@ -96,7 +97,10 @@ client.on('interactionCreate', async interaction => {
 client.on('messageCreate', message => { 
 
   if (message.author.id === KYLE_UID){ //kyle
-    message.react("👎"); return
+    if (Math.random() <= 0.1){
+      message.react("👎");
+    }
+    return
   }
   if (message.author.id === GOJI_UID){ //kyle
     message.react("👍");
@@ -107,8 +111,12 @@ client.on('messageCreate', message => {
 
   //ignore messages not meant for beatrice
   if (!FindAnywhere(message.content, 'beatrice'))
-    if (!message.mentions.has(client.user))
+    if (!message.mentions.has(client.user)){
+      if (Math.random() <= 0.01){
+        message.react(GetRandomLine(EMOJIS));
+      }
       return;
+    }
 
   ReactToMessage(message);
 });
