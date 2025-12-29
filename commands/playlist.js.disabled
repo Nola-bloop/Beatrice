@@ -158,7 +158,7 @@ export default {
 				const playlist = await caller.GetPlaylist(id)
 				if (playlist.response) return await respond(interaction, playlist.response)
 
-				const author = await caller.GetUserId(playlist.author)
+				const author = await caller.GetUser(playlist.author)
 				if (author.response) return await respond(interaction, author.response)
 
 				else{
@@ -166,7 +166,7 @@ export default {
 					output += `Created by : <@${author.user_id}>\n`
 					output += `Collaborators:`
 					for (let i = 0; i < playlist.collaborations.length; i++) {
-						let collaborator = await caller.GetUserId(playlist.collaborations[i].collaborator)
+						let collaborator = await caller.GetUser(playlist.collaborations[i].collaborator)
 						output += ` <@${collaborator.user_id}>`
 					}
 					if (playlist.collaborations.length === 0) output += "none"

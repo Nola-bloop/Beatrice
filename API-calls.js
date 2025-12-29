@@ -6,9 +6,8 @@ const module = {
 		await interaction.reply({ content: message, flags: MessageFlags.Ephemeral })
 	},
 
-	GetUserId : async (id) => {
+	GetUser : async (id) => {
 		const fetchUrl = `${API_URL}/user/id/${id}`;
-		console.log(fetchUrl)
 		const response = await fetch(fetchUrl, {
 		  method: "GET"
 		});
@@ -102,6 +101,14 @@ const module = {
 		const fetchUrl = `${API_URL}/birthday/?userId=${userId}&day=${day}&month=${month}&year=${year}`
 		const response = await fetch (fetchUrl, {
 			method: "POST"
+		})
+		let data = await response.json()
+		return data
+	},
+	ListBirthdays : async () => {
+		const fetchUrl = `${API_URL}/birthday/`
+		const response = await fetch (fetchUrl, {
+			method: "GET"
 		})
 		let data = await response.json()
 		return data
