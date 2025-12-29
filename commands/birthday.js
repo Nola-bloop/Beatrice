@@ -140,10 +140,10 @@ export default {
 
 			//remember year and set all years on same base. Also convert string date to date obj 
 			for (let i = 0; i < birthdays.length; i++){
-				birthdays[i].year = new Date(birthdays[i].date).getFullYear()
+				birthdays[i].components = birthdays[i].date.split("-")
 				birthdays[i].date = new Date(birthdays[i].date)
 				birthdays[i].date.setFullYear(currentDate.getFullYear())
-				console.log(birthdays[i].date)
+				console.log(birthdays[i])
 			}
 
 			birthdays = birthdays.sort(sortByDate)
@@ -153,8 +153,8 @@ export default {
 				user = user.user_id
 				let date = birthdays[i].date
 
-				let day = date.getDate()+
-				let month = monthsOfTheYear[date.getMonth()]
+				let day = birthdays[i].components[2]
+				let month = monthsOfTheYear[birthdays[i].components[1]-1]
 				let thingie = "th"
 				if (day % 10 == 1 && day !== 11) thingie = "st"
 				else if (day % 10 == 2 && day !== 12) thingie = "nd"
@@ -163,10 +163,10 @@ export default {
 				//the flag lets the program start showing birthdays putting the nearest one first and farthest one last
 				if (!flag){
 					if (currentDate < date) farthestSkippedBday = i
-					else output += `\n<@${user}> \`${month} ${day}${thingie}, ${birthdays[i].year}\``
+					else output += `\n<@${user}> \`${month} ${day}${thingie}, ${birthdays[i].components[0]}\``
 				}else{
 					if (i <= farthestSkippedBday)
-					output += `\n<@${user}> \`${month} ${day}${thingie}, ${birthdays[i].year}\``
+					output += `\n<@${user}> \`${month} ${day}${thingie}, ${birthdays[i].components[0]}\``
 				}
 
 				if (i == birthdays.length-1 && farthestSkippedBday != -1){
