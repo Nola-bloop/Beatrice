@@ -1,4 +1,5 @@
 const API_URL = "http://107.152.41.172:8888"
+import { MessageFlags } from 'discord.js';
 
 const module = {
 	Respond : async (interaction, message) => {

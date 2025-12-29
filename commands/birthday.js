@@ -1,10 +1,6 @@
 import { SlashCommandBuilder, MessageFlags } from 'discord.js';
 import caller from '../API-calls.js';
 
-async function respond(interaction, message){
-	await interaction.reply({ content: message, flags: MessageFlags.Ephemeral })
-}
-
 let connection;
 
 export default {
@@ -96,7 +92,7 @@ export default {
 
 			let res = await caller.SetBirthday(userId, day, month, year)
 
-			if (res.response) caller.respond(interaction, res.response)
+			if (res.response) caller.Respond(interaction, res.response)
 		}
 	}
 };
