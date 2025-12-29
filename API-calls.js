@@ -1,11 +1,17 @@
 const API_URL = "http://107.152.41.172:8888"
+
 const module = {
+	Respond : async (interaction, message) => {
+		await interaction.reply({ content: message, flags: MessageFlags.Ephemeral })
+	},
+
 	GetUserId : async (id) => {
 		const fetchUrl = `${API_URL}/user/id/${id}`;
 		console.log(fetchUrl)
 		const response = await fetch(fetchUrl, {
 		  method: "GET"
 		});
+
 		let data = await response.json()
 		return data
 	},
@@ -87,6 +93,14 @@ const module = {
 		const fetchUrl = `${API_URL}/collaboration?userId=${userId}&collaborator=${collaboratorUserId}&playlistId=${playlistId}`;
 		const response = await fetch (fetchUrl, {
 			method: "DELETE"
+		})
+		let data = await response.json()
+		return data
+	},
+	SetBirthday : async (userId, day, month, year) => {
+		const fetchUrl = `${API_URL}/birthday/?userId=${userId}&day=${day}&month=${month}&year=${year}`
+		const response = await fetch (fetchUrl, {
+			method: "POST"
 		})
 		let data = await response.json()
 		return data
